@@ -1,32 +1,25 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 
-import Countries from './Countries'
+import Countries from './components/Countries'
+import Filter from './components/Filter'
 
 const App = () => {
   const [countries, setCountries] = useState([])
-  const [newConutry, setNewCountry] = useState('')
+  const [filter, setFilter] = useState('')
 
   useEffect(() => {
     axios
-    .get(`https://restcountries.com/v3.1/name/${newConutry}`)
+    .get("https://restcountries.com/v3.1/all?fields=capital,area,name,languages,flags")
     .then(response => {
-      console.log(response.data)
       setCountries(response.data)
     })
-  }, [newConutry])
-
-
-  const handleCountryChange = (event) => {
-    setNewCountry(event.target.value)
-  }
+  }, [])
 
   return (
     <div>
-      <p>
-        find countries <input value={newConutry} onChange={handleCountryChange} />
-      </p>
-      <Countries countries={countries}/>
+      <Filter filter={filter} setFilter={setFilter} />
+      <Countries filter={filter} countries={countries}/>
     </div>
   )
 }
