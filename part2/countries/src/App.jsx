@@ -10,7 +10,7 @@ const App = () => {
 
   useEffect(() => {
     axios
-    .get("https://restcountries.com/v3.1/all?fields=capital,area,name,languages,flags")
+    .get("https://restcountries.com/v3.1/all?fields=capital,area,name,languages,flags,capitalInfo")
     .then(response => {
       setCountries(response.data)
     })
