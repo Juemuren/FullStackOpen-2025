@@ -6,7 +6,7 @@ const PersonForm = ({ persons, setPersons }) => {
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
 
-  const addName = (event) => {
+  const addPerson = (event) => {
     event.preventDefault()
     const isSame = persons.some(person =>
       person.name === newName
@@ -37,7 +37,7 @@ const PersonForm = ({ persons, setPersons }) => {
   }
 
   return (
-    <form onSubmit={addName}>
+    <form onSubmit={addPerson}>
       <div>
         name: <input value={newName} onChange={handleNameChange} />
       </div>
