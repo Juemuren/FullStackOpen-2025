@@ -8,7 +8,7 @@ const Persons = ({ persons, showFilter, setPersons }) => {
   return (
     <ul>
       {personsToShow.map(person =>
-        <Person key={person.id} person={person} persons={persons} setPersons={setPersons}/>
+        <Person key={person.id} person={person} persons={persons} setPersons={setPersons} />
       )}
     </ul>
   )
