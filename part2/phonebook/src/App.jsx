@@ -3,12 +3,14 @@ import { useState, useEffect } from 'react'
 import Filter from './components/Filter'
 import PersonForm from './components/PersonForm'
 import Persons from './components/Persons'
+import Notification from './components/Notification'
 
 import personService from './services/persons'
 
 const App = () => {
   const [persons, setPersons] = useState([])
   const [showFilter, setShowFilter] = useState('')
+  const [successMessage, setSuccessMessage] = useState(null)
 
   useEffect(() => {
     personService
@@ -20,12 +22,13 @@ const App = () => {
 
   return (
     <div>
-      <h2>Phonebook</h2>
+      <h1>Phonebook</h1>
+      <Notification message={successMessage} />
       <Filter showFilter={showFilter} setShowFilter={setShowFilter} />
-      <h3>Add a new</h3>
-      <PersonForm persons={persons} setPersons={setPersons} />
-      <h3>Numbers</h3>
-      <Persons persons={persons} showFilter={showFilter} setPersons={setPersons}/>
+      <h2>Add a new</h2>
+      <PersonForm persons={persons} setPersons={setPersons} setMessage={setSuccessMessage} />
+      <h2>Numbers</h2>
+      <Persons persons={persons} showFilter={showFilter} setPersons={setPersons} />
     </div>
   )
 }

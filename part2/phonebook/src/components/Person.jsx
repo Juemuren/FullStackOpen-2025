@@ -10,15 +10,11 @@ const Person = ({ person, persons, setPersons }) => {
           setPersons(persons.filter(p => p.id !== id))
         })
     }
-    else {
-
-    }
 
   }
   return (
     <li>
-      {person.name} {person.number}
-      <button onClick={() => deletePerson(person.id)}>delete</button>
+      {person.name} {person.number} <button onClick={() => deletePerson(person.id)}>delete</button>
     </li>
   )
 }

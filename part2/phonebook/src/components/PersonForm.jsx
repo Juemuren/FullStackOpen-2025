@@ -2,7 +2,7 @@ import { useState } from 'react'
 
 import personService from '../services/persons'
 
-const PersonForm = ({ persons, setPersons }) => {
+const PersonForm = ({ persons, setPersons, setMessage }) => {
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
 
@@ -14,14 +14,17 @@ const PersonForm = ({ persons, setPersons }) => {
     if (isSame) {
       if (window.confirm(`${newName} is already added to phonebook, replace the old number with a new one?`)) {
         const person = persons.find(p => p.name === newName)
-        const id = person.id
-        const changedPerson = { ...person, number: newNumber }
+        const changePerson = { ...person, number: newNumber }
         personService
-          .update(id, changedPerson)
-          .then(returnedPerson => {
-            setPersons(persons.map(p => p.id !== id ? p : returnedPerson))
+          .update(person.id, changePerson)
+          .then(changedPerson => {
+            setPersons(persons.map(p => p.id !== person.id ? p : changedPerson))
             setNewName('')
             setNewNumber('')
+            setMessage(`Changed ${changePerson.name}`)
+            setTimeout(() => {
+              setMessage(null)
+            }, 5000)
           })
       }
     }
@@ -32,10 +35,14 @@ const PersonForm = ({ persons, setPersons }) => {
       }
       personService
         .create(personObject)
-        .then(returnedPerson => {
-          setPersons(persons.concat(returnedPerson))
+        .then(createdPerson => {
+          setPersons(persons.concat(createdPerson))
           setNewName('')
           setNewNumber('')
+          setMessage(`Added ${createdPerson.name}`)
+          setTimeout(() => {
+            setMessage(null)
+          }, 5000)
         })
     }
   }
