@@ -42,9 +42,9 @@ app.get('/api/persons', (request, response) => {
 
 app.get('/api/persons/:id', (request, response) => {
   const id = Number(request.params.id)
-  const people = persons.find(p => p.id === id)
-  if (people) {
-    response.json(people)
+  const person = persons.find(p => p.id === id)
+  if (person) {
+    response.json(person)
   } else {
     response.status(404).end()
   }
@@ -64,20 +64,30 @@ const generateId = () => {
 app.post('/api/persons', (request, response) => {
   const body = request.body
 
-  // if (!body.name) {
-  //   return response.status(400).json({
-  //     error: 'content missing'
-  //   })
-  // }
+  if (!body.name) {
+    return response.status(400).json({
+      error: 'name missing'
+    })
+  }
+  if (!body.number) {
+    return response.status(400).json({
+      error: 'number missing'
+    })
+  }
+  if (persons.find(p => p.name === body.name)) {
+    return response.status(400).json({
+      error: 'name must be unique'
+    })
+  }
 
-  const people = {
+  const person = {
     name: body.name,
     number: body.number,
     date: new Date(),
     id: generateId(),
   }
-  persons = persons.concat(people)
-  response.json(people)
+  persons = persons.concat(person)
+  response.json(person)
 })
 
 const PORT = 3001

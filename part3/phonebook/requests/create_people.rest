@@ -5,3 +5,28 @@ Content-Type: application/json
   "name": "Li TianSuo",
   "number": "114514-1919180"
 }
+
+###
+POST http://localhost:3001/api/persons
+Content-Type: application/json
+
+{
+  "number": "114514-1919180"
+}
+
+###
+POST http://localhost:3001/api/persons
+Content-Type: application/json
+
+{
+  "name": "Li TianSuo"
+}
+
+###
+POST http://localhost:3001/api/persons
+Content-Type: application/json
+
+{
+  "name": "Arto Hellas",
+  "number": "114-514191"
+}
