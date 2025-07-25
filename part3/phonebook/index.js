@@ -27,7 +27,7 @@ let persons = [
 ]
 
 app.get('/', (request, response) => {
-  response.send('<h1>OK</h1>')
+  response.send('OK')
 })
 
 app.get('/info', (request, response) => {
@@ -42,9 +42,9 @@ app.get('/api/persons', (request, response) => {
 
 app.get('/api/persons/:id', (request, response) => {
   const id = Number(request.params.id)
-  const note = persons.find(note => note.id === id)
-  if (note) {
-    response.json(note)
+  const people = persons.find(p => p.id === id)
+  if (people) {
+    response.json(people)
   } else {
     response.status(404).end()
   }
@@ -52,34 +52,32 @@ app.get('/api/persons/:id', (request, response) => {
 
 app.delete('/api/persons/:id', (request, response) => {
   const id = Number(request.params.id)
-  persons = persons.filter(note => note.id !== id)
+  persons = persons.filter(p => p.id !== id)
   response.status(204).end()
 })
 
 const generateId = () => {
-  const maxId = persons.length > 0
-    ? Math.max(...persons.map(n => n.id))
-    : 0
-  return maxId + 1
+  const id = Math.ceil(Math.random() * 1000000)
+  return id
 }
 
 app.post('/api/persons', (request, response) => {
   const body = request.body
 
-  if (!body.content) {
-    return response.status(400).json({
-      error: 'content missing'
-    })
-  }
+  // if (!body.name) {
+  //   return response.status(400).json({
+  //     error: 'content missing'
+  //   })
+  // }
 
-  const note = {
-    content: body.content,
-    important: body.important || false,
+  const people = {
+    name: body.name,
+    number: body.number,
     date: new Date(),
     id: generateId(),
   }
-  persons = persons.concat(note)
-  response.json(note)
+  persons = persons.concat(people)
+  response.json(people)
 })
 
 const PORT = 3001
