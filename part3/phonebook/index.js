@@ -15,10 +15,7 @@ app.use(express.json())
 
 let persons = []
 
-app.get('/', (request, response) => {
-  response.send('<p>OK</p>')
-})
-
+// Need FIX
 app.get('/info', (request, response) => {
   const peopleInfo = `<p>Phonebook has info for ${persons.length} people</p>`
   const dateInfo = `<p>${new Date()}</p>`
@@ -37,17 +34,6 @@ app.get('/api/persons/:id', (request, response) => {
   })
 })
 
-app.delete('/api/persons/:id', (request, response) => {
-  const id = Number(request.params.id)
-  persons = persons.filter(p => p.id !== id)
-  response.status(204).end()
-})
-
-const generateId = () => {
-  const id = Math.ceil(Math.random() * 1000000)
-  return id
-}
-
 app.post('/api/persons', (request, response) => {
   const body = request.body
 
@@ -61,24 +47,27 @@ app.post('/api/persons', (request, response) => {
       error: 'number missing'
     })
   }
-  if (persons.find(p => p.name === body.name)) {
-    return response.status(400).json({
-      error: 'name must be unique'
-    })
-  }
-
-  const person = {
+  const person = new Person({
     name: body.name,
     number: body.number,
-    date: new Date(),
-    id: generateId(),
-  }
-  persons = persons.concat(person)
-  response.json(person)
+  })
+
+  person.save().then(savedPerson => {
+    response.json(savedPerson)
+  })
+})
+
+// Need FIX
+app.delete('/api/persons/:id', (request, response) => {
+  const id = Number(request.params.id)
+  persons = persons.filter(p => p.id !== id)
+  response.status(204).end()
 })
 
 const unknownEndpoint = (request, response) => {
-  response.status(404).send({ error: 'unknown endpoint' })
+  response.status(404).send({
+    error: 'unknown endpoint'
+  })
 }
 
 app.use(unknownEndpoint)
