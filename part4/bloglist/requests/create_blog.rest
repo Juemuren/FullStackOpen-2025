@@ -7,3 +7,14 @@ Content-Type: application/json
   "url": "https://www.bilibili.com",
   "likes": 114514
 }
+
+###
+POST http://localhost:3001/api/blogs
+Content-Type: application/json
+
+{
+  "title": "FullStackOpen",
+  "author": "Matti Luukkainen",
+  "url": "https://fullstackopen.com",
+  "likes": 2022
+}
