@@ -1,0 +1,9 @@
+POST http://localhost:3001/api/blogs
+Content-Type: application/json
+
+{
+  "title": "Test Blog",
+  "author": "Li TianSuo",
+  "url": "https://www.bilibili.com",
+  "likes": 114514
+}
