@@ -60,6 +60,32 @@ describe('api test', () => {
     const response = await api.post('/api/blogs').send(newBlog)
     assert(response.body.likes === 0)
   })
+
+  test('a blog without title is bad', async () => {
+    const newBlog = {
+      author: 'Me',
+      url: 'https://fullstackopen.com/',
+      likes: 100
+    }
+
+    await api
+      .post('/api/blogs')
+      .send(newBlog)
+      .expect(400)
+  })
+
+  test('a blog without url is bad', async () => {
+    const newBlog = {
+      title: 'Test Blog',
+      author: 'Me',
+      likes: 100
+    }
+
+    await api
+      .post('/api/blogs')
+      .send(newBlog)
+      .expect(400)
+  })
 })
 
 after(async () => {
