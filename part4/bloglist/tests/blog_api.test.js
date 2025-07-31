@@ -49,6 +49,17 @@ describe('api test', () => {
     const titles = blogsAtEnd.map(b => b.title)
     assert(titles.includes('Test Blog'))
   })
+
+  test('the likes of a blog default to be zero', async () => {
+    const newBlog = {
+      title: 'Test Blog',
+      author: 'Me',
+      url: 'https://fullstackopen.com/'
+    }
+
+    const response = await api.post('/api/blogs').send(newBlog)
+    assert(response.body.likes === 0)
+  })
 })
 
 after(async () => {
