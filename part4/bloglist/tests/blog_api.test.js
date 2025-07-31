@@ -23,6 +23,11 @@ describe('api test', () => {
       .expect(200)
       .expect('Content-Type', /application\/json/)
   })
+
+  test('blogs has id field', async() => {
+    const response = await api.get('/api/blogs')
+    assert(response.body.map(b => Object.hasOwn(b, 'id')))
+  })
 })
 
 after(async () => {
