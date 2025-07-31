@@ -2,7 +2,7 @@
 - [3.10 phonebook backend step10](https://fullstackopen.com/zh/part3/%E6%8A%8A%E5%BA%94%E7%94%A8%E9%83%A8%E7%BD%B2%E5%88%B0%E7%BD%91%E4%B8%8A#exercises-3-9-3-11)
 由于部署应用到Heroku上需要绑定信用卡，故暂时无法完成此题。
 - [3.21 Deploying the database backend to production](https://fullstackopen.com/zh/part3/es_lint%E4%B8%8E%E4%BB%A3%E7%A0%81%E6%A3%80%E6%9F%A5#exercises-3-19-3-21)
-由于部署应用到Heroku/Fly.io上需要绑定信用卡，故暂时无法完成此题。
+由于部署应用到Heroku/Fly.io/Render上需要绑定信用卡，故暂时无法完成此题。
 
 # 注意事项
 - [3.12: Command-line database](https://fullstackopen.com/zh/part3/%E5%B0%86%E6%95%B0%E6%8D%AE%E5%AD%98%E5%85%A5_mongo_db#exercise-3-12)
