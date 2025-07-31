@@ -28,6 +28,27 @@ describe('api test', () => {
     const response = await api.get('/api/blogs')
     assert(response.body.map(b => Object.hasOwn(b, 'id')))
   })
+
+  test('a valid blog can be added ', async () => {
+    const newBlog = {
+      title: 'Test Blog',
+      author: 'Me',
+      url: 'https://fullstackopen.com/',
+      likes: 114514,
+    }
+
+    await api
+      .post('/api/blogs')
+      .send(newBlog)
+      .expect(201)
+      .expect('Content-Type', /application\/json/)
+
+    const blogsAtEnd = await helper.blogsInDb()
+    assert.strictEqual(blogsAtEnd.length, helper.initialBlogs.length + 1)
+
+    const titles = blogsAtEnd.map(b => b.title)
+    assert(titles.includes('Test Blog'))
+  })
 })
 
 after(async () => {
