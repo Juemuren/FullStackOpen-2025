@@ -26,8 +26,7 @@ const userExtractor = async (request, response, next) => {
   }
 
   try {
-    const user = await User.findById(decodedToken.id)
-    request.user = user._id.toString()
+    request.user = await User.findById(decodedToken.id)
   } catch(exception) {
     next(exception)
   }

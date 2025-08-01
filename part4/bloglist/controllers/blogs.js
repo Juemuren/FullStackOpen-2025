@@ -12,7 +12,7 @@ blogsRouter.get('/', async (request, response) => {
 blogsRouter.post('/', userExtractor, async (request, response, next) => {
   const blog = new Blog({
     ...request.body,
-    user: request.user
+    user: request.user._id
   })
 
   if (!blog.title || !blog.url) {
@@ -24,8 +24,8 @@ blogsRouter.post('/', userExtractor, async (request, response, next) => {
 
   try {
     const savedBlog = await blog.save()
-    user.blogs = user.blogs.concat(savedBlog._id)
-    await user.save()
+    request.user.blogs = request.user.blogs.concat(savedBlog._id)
+    await request.user.save()
     response.status(201).json(savedBlog)
   } catch(exception) {
     next(exception)
