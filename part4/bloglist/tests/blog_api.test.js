@@ -7,6 +7,7 @@ const app = require('../app')
 const api = supertest(app)
 
 const Blog = require('../models/blog')
+const { title } = require('node:process')
 
 beforeEach(async () => {
   await Blog.deleteMany({})
@@ -103,6 +104,26 @@ describe('api test', () => {
 
       const titles = blogsAtEnd.map(b => b.title)
       assert(!titles.includes(blogToDelete.title))
+    })
+  })
+
+  describe('put test', () => {
+    test('can update a blog title if id is valid', async () => {
+      const blogsAtStart = await helper.blogsInDb()
+      const blogToUpdate = blogsAtStart[0]
+      const newBlog = { ...blogToUpdate, title: 'Updated Blog' }
+
+      await api
+        .put(`/api/blogs/${blogToUpdate.id}`)
+        .send(newBlog)
+        .expect(200)
+
+      const blogsAtEnd = await helper.blogsInDb()
+      assert.strictEqual(blogsAtEnd.length, helper.initialBlogs.length)
+
+      const titles = blogsAtEnd.map(b => b.title)
+      assert(!titles.includes(blogToUpdate.title))
+      assert(titles.includes(newBlog.title))
     })
   })
 
