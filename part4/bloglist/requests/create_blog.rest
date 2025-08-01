@@ -5,7 +5,8 @@ Content-Type: application/json
   "title": "Test Blog",
   "author": "Li TianSuo",
   "url": "https://www.bilibili.com",
-  "likes": 114514
+  "likes": 114514,
+  "userId": "688cb88444d245cf972d69ab"
 }
 
 ###
@@ -16,5 +17,6 @@ Content-Type: application/json
   "title": "FullStackOpen",
   "author": "Matti Luukkainen",
   "url": "https://fullstackopen.com",
-  "likes": 2022
+  "likes": 2022,
+  "userId": "688cb88444d245cf972d69ab"
 }
