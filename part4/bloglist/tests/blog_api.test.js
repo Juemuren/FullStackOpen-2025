@@ -1,20 +1,23 @@
-const { test, after, beforeEach, describe } = require('node:test')
+const { test, after, beforeEach, before, describe } = require('node:test')
 const assert = require('node:assert')
 const supertest = require('supertest')
 const mongoose = require('mongoose')
+
 const helper = require('./test_helper')
 const app = require('../app')
+
 const api = supertest(app)
 
-const Blog = require('../models/blog')
-
-beforeEach(async () => {
-  await Blog.deleteMany({})
-  await Blog.insertMany(helper.initialBlogs)
+before(async () => {
+  await helper.initializeUser(helper.initialUser)
 })
 
-describe('api test', () => {
-  describe('get test', () => {
+describe('blog api test', () => {
+  beforeEach(async () => {
+    await helper.initializeBlogs(helper.initialBlogs)
+  })
+
+  describe('blog get test', () => {
     test('blogs are returned as json', async () => {
       await api
         .get('/api/blogs')
@@ -28,9 +31,14 @@ describe('api test', () => {
     })
   })
 
+  describe('blog post test', async () => {
+    let header
 
-  describe('post test', () => {
-    test('a valid blog can be added ', async () => {
+    beforeEach(async () => {
+      header = await helper.getHeaderFor(helper.initialUser)
+    })
+
+    test('a valid blog can be added', async () => {
       const newBlog = {
         title: 'Test Blog',
         author: 'Me',
@@ -40,6 +48,7 @@ describe('api test', () => {
 
       await api
         .post('/api/blogs')
+        .set(header)
         .send(newBlog)
         .expect(201)
         .expect('Content-Type', /application\/json/)
@@ -58,7 +67,11 @@ describe('api test', () => {
         url: 'https://fullstackopen.com/'
       }
 
-      const response = await api.post('/api/blogs').send(newBlog)
+      const response = await api
+        .post('/api/blogs')
+        .set(header)
+        .send(newBlog)
+
       assert(response.body.likes === 0)
     })
 
@@ -71,6 +84,7 @@ describe('api test', () => {
 
       await api
         .post('/api/blogs')
+        .set(header)
         .send(newBlog)
         .expect(400)
     })
@@ -84,12 +98,13 @@ describe('api test', () => {
 
       await api
         .post('/api/blogs')
+        .set(header)
         .send(newBlog)
         .expect(400)
     })
   })
 
-  describe('delete test', () => {
+  describe('blog delete test', () => {
     test('can delete a blog if id is valid', async () => {
       const blogsAtStart = await helper.blogsInDb()
       const blogToDelete = blogsAtStart[0]
@@ -106,7 +121,7 @@ describe('api test', () => {
     })
   })
 
-  describe('put test', () => {
+  describe('blog put test', () => {
     test('can update a blog title if id is valid', async () => {
       const blogsAtStart = await helper.blogsInDb()
       const blogToUpdate = blogsAtStart[0]
