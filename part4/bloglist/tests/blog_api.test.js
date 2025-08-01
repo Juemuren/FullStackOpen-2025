@@ -32,13 +32,8 @@ describe('blog api test', () => {
   })
 
   describe('blog post test', async () => {
-    let header
-
-    beforeEach(async () => {
-      header = await helper.getHeaderFor(helper.initialUser)
-    })
-
     test('a valid blog can be added', async () => {
+      const header = await helper.getHeaderFor(helper.initialUser)
       const newBlog = {
         title: 'Test Blog',
         author: 'Me',
@@ -61,6 +56,7 @@ describe('blog api test', () => {
     })
 
     test('the likes of a blog default to be zero', async () => {
+      const header = await helper.getHeaderFor(helper.initialUser)
       const newBlog = {
         title: 'Test Blog',
         author: 'Me',
@@ -76,6 +72,7 @@ describe('blog api test', () => {
     })
 
     test('a blog without title is bad', async () => {
+      const header = await helper.getHeaderFor(helper.initialUser)
       const newBlog = {
         author: 'Me',
         url: 'https://fullstackopen.com/',
@@ -90,6 +87,7 @@ describe('blog api test', () => {
     })
 
     test('a blog without url is bad', async () => {
+      const header = await helper.getHeaderFor(helper.initialUser)
       const newBlog = {
         title: 'Test Blog',
         author: 'Me',
@@ -102,15 +100,31 @@ describe('blog api test', () => {
         .send(newBlog)
         .expect(400)
     })
+
+    test('a request without token is bad', async () => {
+      const newBlog = {
+        title: 'Test Blog',
+        author: 'Me',
+        url: 'https://fullstackopen.com/',
+        likes: 114514,
+      }
+
+      await api
+        .post('/api/blogs')
+        .send(newBlog)
+        .expect(401)
+    })
   })
 
   describe('blog delete test', () => {
     test('can delete a blog if id is valid', async () => {
+      const header = await helper.getHeaderFor(helper.initialUser)
       const blogsAtStart = await helper.blogsInDb()
       const blogToDelete = blogsAtStart[0]
 
       await api
         .delete(`/api/blogs/${blogToDelete.id}`)
+        .set(header)
         .expect(204)
 
       const blogsAtEnd = await helper.blogsInDb()
