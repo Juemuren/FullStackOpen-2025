@@ -17,8 +17,7 @@ blogsRouter.post('/', async (request, response, next) => {
   })
 
   if (!blog.title || !blog.url) {
-    response.status(400).end()
-    return
+    return response.status(400).end()
   }
   if (!blog.likes) {
     blog.likes = 0
