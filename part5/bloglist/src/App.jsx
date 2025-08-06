@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react'
-import Blog from './components/Blog'
 
 import blogService from './services/blogs'
 
 import LoginForm from './components/LoginForm'
+import Logout from './components/Logout'
+import BlogForm from './components/BlogForm'
 import Bloglist from './components/BlogList'
 
 const App = () => {
@@ -30,7 +31,12 @@ const App = () => {
     <div>
       {user === null ?
         <LoginForm setUser={setUser} /> :
-        <Bloglist blogs={blogs} user={user} setUser={setUser} />
+        <div>
+          <h2>blogs</h2>
+          <Logout user={user} setUser={setUser} />
+          <BlogForm blogs={blogs} setBlogs={setBlogs}/>
+          <Bloglist blogs={blogs} />
+        </div>
       }
     </div>
   )
