@@ -2,7 +2,7 @@ import { useState } from "react"
 
 import blogService from '../services/blogs'
 
-const BlogForm = ({blogs, setBlogs}) => {
+const BlogForm = ({blogs, setBlogs, setSuccessMessage}) => {
   const [title, setTitle] = useState("")
   const [author, setAuthor] = useState("")
   const [url, setUrl] = useState("")
@@ -14,12 +14,17 @@ const BlogForm = ({blogs, setBlogs}) => {
       author: author,
       url: url
     }
-    blogService.create(blogObject).then((returnedBlog) => {
-      setBlogs(blogs.concat(returnedBlog))
-      setTitle("")
-      setAuthor("")
-      setUrl("")
-    })
+    blogService.create(blogObject)
+      .then((returnedBlog) => {
+        setBlogs(blogs.concat(returnedBlog))
+        setTitle("")
+        setAuthor("")
+        setUrl("")
+        setSuccessMessage(`a new blog ${returnedBlog.title} by ${returnedBlog.author} added`)
+        setTimeout(() => {
+          setSuccessMessage(null)
+        }, 5000);
+      })
   }
 
   return (

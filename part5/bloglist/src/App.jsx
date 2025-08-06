@@ -6,11 +6,13 @@ import LoginForm from './components/LoginForm'
 import Logout from './components/Logout'
 import BlogForm from './components/BlogForm'
 import Bloglist from './components/BlogList'
+import Notification from './components/Notification'
 
 const App = () => {
   const [blogs, setBlogs] = useState([])
-
   const [user, setUser] = useState(null)
+  const [successMessage, setSuccessMessage] = useState(null)
+  const [errorMessage, setErrorMessage] = useState(null)
 
   useEffect(() => {
     blogService.getAll().then(blogs =>
@@ -29,12 +31,24 @@ const App = () => {
 
   return (
     <div>
+      <Notification message={successMessage} type='success' />
+      <Notification message={errorMessage} type='error' />
       {user === null ?
-        <LoginForm setUser={setUser} /> :
+        <LoginForm
+          setUser={setUser}
+          setErrorMessage={setErrorMessage}
+        /> :
         <div>
           <h2>blogs</h2>
-          <Logout user={user} setUser={setUser} />
-          <BlogForm blogs={blogs} setBlogs={setBlogs}/>
+          <Logout
+            user={user}
+            setUser={setUser}
+          />
+          <BlogForm
+            blogs={blogs}
+            setBlogs={setBlogs}
+            setSuccessMessage={setSuccessMessage}
+          />
           <Bloglist blogs={blogs} />
         </div>
       }
