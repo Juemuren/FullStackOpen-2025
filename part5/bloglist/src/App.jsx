@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useState, useEffect, useRef } from 'react'
 
 import blogService from './services/blogs'
@@ -53,25 +54,24 @@ const App = () => {
     setUser(null)
   }
 
-  const createBlog = (blogObject) => {
+  const createBlog = async (blogObject) => {
     blogFormRef.current.toggleVisibility()
-    blogService
-      .create(blogObject)
-      .then((returnedBlog) => {
-        setBlogs(blogs.concat(returnedBlog))
-        setSuccessMessage(`a new blog ${returnedBlog.title} by ${returnedBlog.author} added`)
-        setTimeout(() => {
-          setSuccessMessage(null)
-        }, 5000);
-      })
+    const newBlog = await blogService.create(blogObject)
+    setBlogs(blogs.concat(newBlog))
+    setSuccessMessage(`a new blog ${newBlog.title} by ${newBlog.author} added`)
+    setTimeout(() => {
+      setSuccessMessage(null)
+    }, 5000)
   }
 
-  const likeBlog = (id, blogObject) => {
-    blogService
-      .update(id, blogObject)
-      .then(likedBlog => {
-        setBlogs(blogs.map(b => b.id !== id ? b : {...b, likes: likedBlog.likes}))
-      })
+  const deleteBlog = async (id) => {
+    await blogService.deleteOne(id)
+    setBlogs(blogs.filter(b => b.id !== id))
+  }
+
+  const likeBlog = async (id, blogObject) => {
+    const likedBlog = await blogService.update(id, blogObject)
+    setBlogs(blogs.map(b => b.id !== id ? b : {...b, likes: likedBlog.likes}))
   }
 
   const blogFormRef = useRef()
@@ -92,7 +92,12 @@ const App = () => {
           <h2>blogs</h2>
           <Logout name={user.name} logout={logout} />
           {blogForm()}
-          <Bloglist blogs={blogs} updateBlog={likeBlog} />
+          <Bloglist
+            user={user}
+            blogs={blogs}
+            updateBlog={likeBlog}
+            deleteBlog={deleteBlog}
+          />
         </div>
       }
     </div>
