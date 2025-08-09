@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 
 import blogService from './services/blogs'
+import loginService from './services/login'
 
 import LoginForm from './components/LoginForm'
 import Logout from './components/Logout'
@@ -30,6 +31,23 @@ const App = () => {
     }
   }, [])
 
+  const login = async (userObject) => {
+    try {
+      const user = await loginService.login(userObject)
+
+      window.localStorage.setItem(
+        'loggedBlogappUser', JSON.stringify(user)
+      )
+      blogService.setToken(user.token)
+      setUser(user)
+    } catch (exception) {
+      setErrorMessage("wrong username or password")
+      setTimeout(() => {
+        setErrorMessage(null)
+      }, 5000);
+    }
+  }
+
   const addBlog = (blogObject) => {
     blogFormRef.current.toggleVisibility()
     blogService
@@ -46,7 +64,7 @@ const App = () => {
   const blogFormRef = useRef()
 
   const blogForm = () => (
-    <Togglable buttonLabel='new blog' ref={blogFormRef}>
+    <Togglable buttonLabel='create new blog' ref={blogFormRef}>
       <BlogForm addBlog={addBlog} />
     </Togglable>
   )
@@ -56,10 +74,7 @@ const App = () => {
       <Notification message={successMessage} type='success' />
       <Notification message={errorMessage} type='error' />
       {user === null ?
-        <LoginForm
-          setUser={setUser}
-          setErrorMessage={setErrorMessage}
-        /> :
+        <LoginForm login={login} /> :
         <div>
           <h2>blogs</h2>
           <Logout
