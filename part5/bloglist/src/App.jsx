@@ -34,7 +34,6 @@ const App = () => {
   const login = async (userObject) => {
     try {
       const user = await loginService.login(userObject)
-
       window.localStorage.setItem(
         'loggedBlogappUser', JSON.stringify(user)
       )
@@ -48,7 +47,13 @@ const App = () => {
     }
   }
 
-  const addBlog = (blogObject) => {
+  const logout = () => {
+    window.localStorage.removeItem('loggedBlogappUser')
+    blogService.setToken(null)
+    setUser(null)
+  }
+
+  const createBlog = (blogObject) => {
     blogFormRef.current.toggleVisibility()
     blogService
       .create(blogObject)
@@ -61,11 +66,19 @@ const App = () => {
       })
   }
 
+  const updateBlog = (id, blogObject) => {
+    blogService
+      .update(id, blogObject)
+      .then(returnedBlog => {
+        setBlogs(blogs.map(b => b.id !== id ? b : returnedBlog))
+      })
+  }
+
   const blogFormRef = useRef()
 
   const blogForm = () => (
     <Togglable buttonLabel='create new blog' ref={blogFormRef}>
-      <BlogForm addBlog={addBlog} />
+      <BlogForm createBlog={createBlog} />
     </Togglable>
   )
 
@@ -77,12 +90,9 @@ const App = () => {
         <LoginForm login={login} /> :
         <div>
           <h2>blogs</h2>
-          <Logout
-            user={user}
-            setUser={setUser}
-          />
+          <Logout name={user.name} logout={logout} />
           {blogForm()}
-          <Bloglist blogs={blogs} />
+          <Bloglist blogs={blogs} updateBlog={updateBlog} />
         </div>
       }
     </div>
