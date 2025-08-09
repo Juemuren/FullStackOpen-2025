@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 
 import blogService from './services/blogs'
 
@@ -7,6 +7,7 @@ import Logout from './components/Logout'
 import BlogForm from './components/BlogForm'
 import Bloglist from './components/BlogList'
 import Notification from './components/Notification'
+import Togglable from './components/Togglable'
 
 const App = () => {
   const [blogs, setBlogs] = useState([])
@@ -29,6 +30,27 @@ const App = () => {
     }
   }, [])
 
+  const addBlog = (blogObject) => {
+    blogFormRef.current.toggleVisibility()
+    blogService
+      .create(blogObject)
+      .then((returnedBlog) => {
+        setBlogs(blogs.concat(returnedBlog))
+        setSuccessMessage(`a new blog ${returnedBlog.title} by ${returnedBlog.author} added`)
+        setTimeout(() => {
+          setSuccessMessage(null)
+        }, 5000);
+      })
+  }
+
+  const blogFormRef = useRef()
+
+  const blogForm = () => (
+    <Togglable buttonLabel='new blog' ref={blogFormRef}>
+      <BlogForm addBlog={addBlog} />
+    </Togglable>
+  )
+
   return (
     <div>
       <Notification message={successMessage} type='success' />
@@ -44,11 +66,7 @@ const App = () => {
             user={user}
             setUser={setUser}
           />
-          <BlogForm
-            blogs={blogs}
-            setBlogs={setBlogs}
-            setSuccessMessage={setSuccessMessage}
-          />
+          {blogForm()}
           <Bloglist blogs={blogs} />
         </div>
       }
