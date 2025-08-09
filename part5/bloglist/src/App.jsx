@@ -66,11 +66,11 @@ const App = () => {
       })
   }
 
-  const updateBlog = (id, blogObject) => {
+  const likeBlog = (id, blogObject) => {
     blogService
       .update(id, blogObject)
-      .then(returnedBlog => {
-        setBlogs(blogs.map(b => b.id !== id ? b : returnedBlog))
+      .then(likedBlog => {
+        setBlogs(blogs.map(b => b.id !== id ? b : {...b, likes: likedBlog.likes}))
       })
   }
 
@@ -92,7 +92,7 @@ const App = () => {
           <h2>blogs</h2>
           <Logout name={user.name} logout={logout} />
           {blogForm()}
-          <Bloglist blogs={blogs} updateBlog={updateBlog} />
+          <Bloglist blogs={blogs} updateBlog={likeBlog} />
         </div>
       }
     </div>
