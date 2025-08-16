@@ -35,7 +35,7 @@ const Blog = ({ user, blog, updateBlog, deleteBlog }) => {
   }
 
   return (
-    <div style={blogStyle} className="blog">
+    <div style={blogStyle} className="blog" data-likes={blog.likes}>
       <div>
         {blog.title} {blog.author}
         <button onClick={changeShow}>{buttonLable}</button>

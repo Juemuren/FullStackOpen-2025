@@ -1,5 +1,5 @@
 const { test, expect, beforeEach, describe } = require('@playwright/test')
-const { loginWith, createBlog } = require('./helper')
+const { loginWith, createBlog, likeBlog } = require('./helper')
 
 describe('Blog app', () => {
   beforeEach(async ({ page, request }) => {
@@ -77,6 +77,26 @@ describe('Blog app', () => {
         await loginWith(page, '1919180', '114514')
         await page.getByRole('button', { name: 'view' }).click();
         await expect(page.getByText('remove')).not.toBeVisible()
+      })
+    })
+
+    describe('and several blogs exists', () => {
+      beforeEach(async ({ page }) => {
+        await createBlog(page, 'first title', 'first author', 'first url')
+        await createBlog(page, 'second title', 'second author', 'second url')
+        await createBlog(page, 'third title', 'third author', 'third url')
+      })
+
+      test('blogs sorted by likes', async ({ page }) => {
+        await likeBlog(page, 2, 2)
+        await likeBlog(page, 1, 1)
+
+        const blogs = await page.locator('.blog').all()
+        const likesList = await Promise
+          .all(blogs.map(blog => blog.getAttribute('data-likes')))
+          .then(values => values.map(Number));
+        const sortedLikes = [...likesList].sort((a, b) => b - a);
+        expect(likesList).toEqual(sortedLikes);
       })
     })
   })
