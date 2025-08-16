@@ -59,6 +59,25 @@ describe('Blog app', () => {
         await page.getByRole('button', { name: 'remove' }).click();
         await expect(page.getByText('a title a author')).not.toBeVisible()
       });
+
+      test('remove button rendered if user is creator', async ({ page }) => {
+        await page.getByRole('button', { name: 'view' }).click();
+        await expect(page.getByText('remove')).toBeVisible()
+      })
+
+      test('remove button hided if user is not creator', async ({ page, request }) => {
+        await request.post('/api/users', {
+          data: {
+            name: 'Tian Suoli',
+            username: '1919180',
+            password: '114514'
+          }
+        })
+        await page.getByRole('button', { name: 'logout' }).click();
+        await loginWith(page, '1919180', '114514')
+        await page.getByRole('button', { name: 'view' }).click();
+        await expect(page.getByText('remove')).not.toBeVisible()
+      })
     })
   })
 })
