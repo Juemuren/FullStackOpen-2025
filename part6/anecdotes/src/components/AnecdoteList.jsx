@@ -6,7 +6,9 @@ import { setNotification, removeNotification } from "../reducers/notificationRed
 const AnecdoteList = () => {
   const dispatch = useDispatch()
   const anecdotes = useSelector(({ filter, anecdotes }) => {
-    return anecdotes.filter(a => a.content.includes(filter))
+    return anecdotes
+      .filter(a => a.content.includes(filter))
+      .sort((a, b) => b.votes - a.votes)
   })
 
   const vote = (anecdote) => {
