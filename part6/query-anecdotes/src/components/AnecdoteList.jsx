@@ -1,9 +1,11 @@
 /* eslint-disable react/prop-types */
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { updateAnecdote } from '../requests'
+import { useNotificationDispatch } from '../context/NotificationContext'
 
 const AnecdoteList = ({ anecdotes }) => {
   const queryClient = useQueryClient()
+  const notificationDispatch = useNotificationDispatch()
 
   const updateAnecdoteMutation = useMutation({
     mutationFn: updateAnecdote,
@@ -16,6 +18,10 @@ const AnecdoteList = ({ anecdotes }) => {
   })
   const handleVote = (anecdote) => {
     updateAnecdoteMutation.mutate({...anecdote, votes: anecdote.votes + 1 })
+    notificationDispatch({ type: "SET", payload: `anecdote '${anecdote.content}' voted`})
+    setTimeout(() => {
+      notificationDispatch({ type: "CLEAR" })
+    }, 5000);
   }
 
   return (
