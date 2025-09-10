@@ -1,7 +1,8 @@
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
-import { getAnecdotes, updateAnecdote } from '../requests'
+/* eslint-disable react/prop-types */
+import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { updateAnecdote } from '../requests'
 
-const AnecdoteList = () => {
+const AnecdoteList = ({ anecdotes }) => {
   const queryClient = useQueryClient()
 
   const updateAnecdoteMutation = useMutation({
@@ -16,23 +17,6 @@ const AnecdoteList = () => {
   const handleVote = (anecdote) => {
     updateAnecdoteMutation.mutate({...anecdote, votes: anecdote.votes + 1 })
   }
-
-  const result = useQuery({
-    queryKey: ['anecdotes'],
-    queryFn: getAnecdotes,
-    retry: false,
-    refetchOnWindowFocus: false
-  })
-  console.log(result)
-
-  if ( result.isLoading ) {
-    return <div>loading data...</div>
-  }
-  if ( result.isError ) {
-    return <div>anecdote service not available due to problems in server</div>
-  }
-
-  const anecdotes = result.data
 
   return (
     <div>
