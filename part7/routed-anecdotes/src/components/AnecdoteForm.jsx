@@ -16,6 +16,12 @@ const AnecdoteForm = (props) => {
     })
   }
 
+  const clearInput = () => {
+    content.reset()
+    author.reset()
+    info.reset()
+  }
+
   return (
     <div>
       <h2>create a new anecdote</h2>
@@ -34,6 +40,7 @@ const AnecdoteForm = (props) => {
         </div>
         <button>create</button>
       </form>
+      <button onClick={() => clearInput()} >reset</button>
     </div>
   )
 }
