@@ -28,15 +28,15 @@ const AnecdoteForm = (props) => {
       <form onSubmit={handleSubmit}>
         <div>
           content
-          <input name='content' {...content} />
+          <input name='content' {...content.field} />
         </div>
         <div>
           author
-          <input name='author' {...author} />
+          <input name='author' {...author.field} />
         </div>
         <div>
           url for more info
-          <input name='info' {...info} />
+          <input name='info' {...info.field} />
         </div>
         <button>create</button>
       </form>
