@@ -49,16 +49,6 @@ const App = () => {
     setUser(null)
   }
 
-  // const deleteBlog = async (id) => {
-  //   await blogService.deleteOne(id)
-  //   setBlogs(blogs.filter((b) => b.id !== id))
-  // }
-
-  // const likeBlog = async (id, blogObject) => {
-  //   const likedBlog = await blogService.update(id, blogObject)
-  //   setBlogs(blogs.map((b) => (b.id !== id ? b : { ...b, likes: likedBlog.likes })))
-  // }
-
   const blogFormRef = useRef()
 
   const blogForm = () => (
@@ -77,7 +67,6 @@ const App = () => {
           <h2>blogs</h2>
           <Logout name={user.name} logout={logout} />
           {blogForm()}
-          {/* <Bloglist user={user} blogs={blogs} updateBlog={likeBlog} deleteBlog={deleteBlog} /> */}
           <Bloglist user={user} />
         </div>
       )}
