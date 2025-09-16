@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
+import { useDispatch } from 'react-redux'
 
 import blogService from './services/blogs'
 import loginService from './services/login'
@@ -10,11 +11,12 @@ import Bloglist from './components/BlogList'
 import Notification from './components/Notification'
 import Togglable from './components/Togglable'
 
+import { showNotification } from './reducers/notificationReducer'
+
 const App = () => {
   const [blogs, setBlogs] = useState([])
   const [user, setUser] = useState(null)
-  const [successMessage, setSuccessMessage] = useState(null)
-  const [errorMessage, setErrorMessage] = useState(null)
+  const dispatch = useDispatch()
 
   useEffect(() => {
     blogService.getAll().then((blogs) => setBlogs(blogs))
@@ -37,10 +39,7 @@ const App = () => {
       setUser(user)
       // eslint-disable-next-line no-unused-vars
     } catch (exception) {
-      setErrorMessage('wrong username or password')
-      setTimeout(() => {
-        setErrorMessage(null)
-      }, 5000)
+      dispatch(showNotification('wrong username or password', 5, 'error'))
     }
   }
 
@@ -54,10 +53,7 @@ const App = () => {
     blogFormRef.current.toggleVisibility()
     const newBlog = await blogService.create(blogObject)
     setBlogs(blogs.concat(newBlog))
-    setSuccessMessage(`a new blog ${newBlog.title} by ${newBlog.author} added`)
-    setTimeout(() => {
-      setSuccessMessage(null)
-    }, 5000)
+    dispatch(showNotification(`a new blog ${newBlog.title} by ${newBlog.author} added`, 5, 'success'))
   }
 
   const deleteBlog = async (id) => {
@@ -80,8 +76,7 @@ const App = () => {
 
   return (
     <div>
-      <Notification message={successMessage} type="success" />
-      <Notification message={errorMessage} type="error" />
+      <Notification />
       {user === null ? (
         <LoginForm login={login} />
       ) : (
