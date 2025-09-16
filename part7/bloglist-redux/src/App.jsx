@@ -1,8 +1,5 @@
-import { useState, useEffect, useRef } from 'react'
-import { useDispatch } from 'react-redux'
-
-import blogService from './services/blogs'
-import loginService from './services/login'
+import { useEffect, useRef } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 
 import LoginForm from './components/LoginForm'
 import Logout from './components/Logout'
@@ -11,43 +8,22 @@ import Bloglist from './components/BlogList'
 import Notification from './components/Notification'
 import Togglable from './components/Togglable'
 
-import { showNotification } from './reducers/notificationReducer'
 import { initBlogs } from './reducers/blogReducer'
+import { initUser } from './reducers/userReducer'
 
 const App = () => {
-  const [user, setUser] = useState(null)
   const dispatch = useDispatch()
+
+  const user = useSelector((state) => state.user)
 
   useEffect(() => {
     dispatch(initBlogs())
   })
 
   useEffect(() => {
-    const loggedUserJSON = window.localStorage.getItem('loggedBlogappUser')
-    if (loggedUserJSON) {
-      const user = JSON.parse(loggedUserJSON)
-      setUser(user)
-      blogService.setToken(user.token)
-    }
+    dispatch(initUser())
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
-
-  const login = async (userObject) => {
-    try {
-      const user = await loginService.login(userObject)
-      window.localStorage.setItem('loggedBlogappUser', JSON.stringify(user))
-      blogService.setToken(user.token)
-      setUser(user)
-      // eslint-disable-next-line no-unused-vars
-    } catch (exception) {
-      dispatch(showNotification('wrong username or password', 5, 'error'))
-    }
-  }
-
-  const logout = () => {
-    window.localStorage.removeItem('loggedBlogappUser')
-    blogService.setToken(null)
-    setUser(null)
-  }
 
   const blogFormRef = useRef()
 
@@ -61,11 +37,11 @@ const App = () => {
     <div>
       <Notification />
       {user === null ? (
-        <LoginForm login={login} />
+        <LoginForm />
       ) : (
         <div>
           <h2>blogs</h2>
-          <Logout name={user.name} logout={logout} />
+          <Logout name={user.name} />
           {blogForm()}
           <Bloglist user={user} />
         </div>

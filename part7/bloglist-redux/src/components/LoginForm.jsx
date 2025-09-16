@@ -1,16 +1,28 @@
 import { useState } from 'react'
+import { useDispatch } from 'react-redux'
 
-const LoginForm = ({ login }) => {
+import { showNotification } from '../reducers/notificationReducer'
+import { login } from '../reducers/userReducer'
+
+const LoginForm = () => {
+  const dispatch = useDispatch()
+
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
 
-  const handleLogin = (event) => {
+  const handleLogin = async (event) => {
     event.preventDefault()
     const userObject = {
       username: username,
       password: password,
     }
-    login(userObject)
+
+    try {
+      await dispatch(login(userObject))
+      // eslint-disable-next-line no-unused-vars
+    } catch (exception) {
+      dispatch(showNotification('wrong username or password', 5, 'error'))
+    }
 
     setUsername('')
     setPassword('')
