@@ -1,9 +1,15 @@
+import { useSelector } from 'react-redux'
+
 import Blog from './Blog'
 
-const Bloglist = ({ user, blogs, updateBlog, deleteBlog }) => {
-  if (blogs.length !== 0) {
-    blogs.sort((a, b) => b.likes - a.likes)
-  }
+const Bloglist = ({ user, updateBlog, deleteBlog }) => {
+  const blogs = useSelector(({ blogs }) => {
+    if (!blogs || blogs.length !== 0) {
+      return blogs
+    }
+
+    return blogs.sort((a, b) => b.likes - a.likes)
+  })
 
   return (
     <div>

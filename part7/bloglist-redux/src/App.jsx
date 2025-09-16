@@ -12,15 +12,15 @@ import Notification from './components/Notification'
 import Togglable from './components/Togglable'
 
 import { showNotification } from './reducers/notificationReducer'
+import { initBlogs } from './reducers/blogReducer'
 
 const App = () => {
-  const [blogs, setBlogs] = useState([])
   const [user, setUser] = useState(null)
   const dispatch = useDispatch()
 
   useEffect(() => {
-    blogService.getAll().then((blogs) => setBlogs(blogs))
-  }, [])
+    dispatch(initBlogs())
+  })
 
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('loggedBlogappUser')
@@ -49,28 +49,21 @@ const App = () => {
     setUser(null)
   }
 
-  const createBlog = async (blogObject) => {
-    blogFormRef.current.toggleVisibility()
-    const newBlog = await blogService.create(blogObject)
-    setBlogs(blogs.concat(newBlog))
-    dispatch(showNotification(`a new blog ${newBlog.title} by ${newBlog.author} added`, 5, 'success'))
-  }
+  // const deleteBlog = async (id) => {
+  //   await blogService.deleteOne(id)
+  //   setBlogs(blogs.filter((b) => b.id !== id))
+  // }
 
-  const deleteBlog = async (id) => {
-    await blogService.deleteOne(id)
-    setBlogs(blogs.filter((b) => b.id !== id))
-  }
-
-  const likeBlog = async (id, blogObject) => {
-    const likedBlog = await blogService.update(id, blogObject)
-    setBlogs(blogs.map((b) => (b.id !== id ? b : { ...b, likes: likedBlog.likes })))
-  }
+  // const likeBlog = async (id, blogObject) => {
+  //   const likedBlog = await blogService.update(id, blogObject)
+  //   setBlogs(blogs.map((b) => (b.id !== id ? b : { ...b, likes: likedBlog.likes })))
+  // }
 
   const blogFormRef = useRef()
 
   const blogForm = () => (
     <Togglable buttonLabel="create new blog" ref={blogFormRef}>
-      <BlogForm createBlog={createBlog} />
+      <BlogForm />
     </Togglable>
   )
 
@@ -84,7 +77,8 @@ const App = () => {
           <h2>blogs</h2>
           <Logout name={user.name} logout={logout} />
           {blogForm()}
-          <Bloglist user={user} blogs={blogs} updateBlog={likeBlog} deleteBlog={deleteBlog} />
+          {/* <Bloglist user={user} blogs={blogs} updateBlog={likeBlog} deleteBlog={deleteBlog} /> */}
+          <Bloglist user={user} />
         </div>
       )}
     </div>
