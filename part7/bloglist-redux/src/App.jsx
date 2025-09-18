@@ -6,15 +6,21 @@ import Notification from './components/Notification'
 import LoginInfo from './components/LoginInfo'
 import BlogView from './components/BlogView'
 import UserView from './components/UserView'
+import UserInfo from './components/UserInfo'
 
 import { initBlogs } from './reducers/blogReducer'
 import { initUser } from './reducers/userReducer'
+import { initUsers } from './reducers/usersReducer'
 
 const App = () => {
   const dispatch = useDispatch()
 
   useEffect(() => {
     dispatch(initBlogs())
+  })
+
+  useEffect(() => {
+    dispatch(initUsers())
   })
 
   useEffect(() => {
@@ -30,6 +36,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<BlogView />} />
         <Route path="/users" element={<UserView />} />
+        <Route path="/users/:id" element={<UserInfo />} />
       </Routes>
     </div>
   )

@@ -1,8 +1,12 @@
-const UserBlogCount = ({ name, count }) => {
+import { Link } from 'react-router-dom'
+
+const UserBlogCount = ({ user }) => {
   return (
     <tr>
-      <td>{name}</td>
-      <td>{count}</td>
+      <td>
+        <Link to={user.id}>{user.name}</Link>
+      </td>
+      <td>{user.blogs.length}</td>
     </tr>
   )
 }
