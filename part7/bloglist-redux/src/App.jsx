@@ -7,6 +7,7 @@ import BlogForm from './components/BlogForm'
 import Bloglist from './components/BlogList'
 import Notification from './components/Notification'
 import Togglable from './components/Togglable'
+import UserView from './components/UserView'
 
 import { initBlogs } from './reducers/blogReducer'
 import { initUser } from './reducers/userReducer'
@@ -46,6 +47,7 @@ const App = () => {
           <Bloglist user={user} />
         </div>
       )}
+      <UserView />
     </div>
   )
 }
