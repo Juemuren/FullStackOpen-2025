@@ -3,16 +3,14 @@ const Blog = require('../models/blog')
 const userExtractor = require('../utils/middleware').userExtractor
 
 blogsRouter.get('/', async (request, response) => {
-  const blogs = await Blog
-    .find({})
-    .populate('user', { username: 1, name: 1 })
+  const blogs = await Blog.find({}).populate('user', { username: 1, name: 1 })
   response.json(blogs)
 })
 
 blogsRouter.post('/', userExtractor, async (request, response, next) => {
   const blog = new Blog({
     ...request.body,
-    user: request.user._id
+    user: request.user._id,
   })
 
   if (!blog.title || !blog.url) {
@@ -21,6 +19,9 @@ blogsRouter.post('/', userExtractor, async (request, response, next) => {
   if (!blog.likes) {
     blog.likes = 0
   }
+  if (!blog.comments) {
+    blog.comments = []
+  }
 
   try {
     const savedBlog = await blog.save()
@@ -28,7 +29,7 @@ blogsRouter.post('/', userExtractor, async (request, response, next) => {
     await request.user.save()
     const populatedBlog = await savedBlog.populate('user', { username: 1, name: 1 })
     response.status(201).json(populatedBlog)
-  } catch(exception) {
+  } catch (exception) {
     next(exception)
   }
 })
@@ -42,7 +43,7 @@ blogsRouter.delete('/:id', userExtractor, async (request, response, next) => {
   try {
     await Blog.findByIdAndDelete(request.params.id)
     response.status(204).end()
-  } catch(exception) {
+  } catch (exception) {
     next(exception)
   }
 })
@@ -51,9 +52,9 @@ blogsRouter.put('/:id', async (request, response, next) => {
   const blog = request.body
 
   try {
-    const updatedBlog = await Blog.findByIdAndUpdate(request.params.id, blog, {new: true})
+    const updatedBlog = await Blog.findByIdAndUpdate(request.params.id, blog, { new: true })
     response.json(updatedBlog)
-  } catch(exception) {
+  } catch (exception) {
     next(exception)
   }
 })

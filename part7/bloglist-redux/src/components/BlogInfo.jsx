@@ -1,6 +1,8 @@
 import { useSelector, useDispatch } from 'react-redux'
 import { useMatch } from 'react-router-dom'
 
+import BlogComment from './BlogComment'
+
 import { deleteBlog, likeBlog } from '../reducers/blogReducer'
 
 const BlogInfo = () => {
@@ -35,6 +37,7 @@ const BlogInfo = () => {
       </div>
       <p>added by {blog.user.name}</p>
       {blog.user.username === user.username && <button onClick={handleRemove}>remove</button>}
+      <BlogComment comments={blog.comments} />
     </div>
   )
 }
