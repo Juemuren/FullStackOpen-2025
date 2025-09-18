@@ -1,8 +1,6 @@
 import { useRef } from 'react'
 import { useSelector } from 'react-redux'
 
-import LoginForm from './LoginForm'
-import Logout from './Logout'
 import BlogForm from './BlogForm'
 import Bloglist from './BlogList'
 import Togglable from './Togglable'
@@ -18,14 +16,8 @@ const BlogView = () => {
     </Togglable>
   )
 
-  if (user === null) {
-    return <LoginForm />
-  }
-
   return (
     <div>
-      <h2>blogs</h2>
-      <Logout name={user.name} />
       {blogForm()}
       <Bloglist user={user} />
     </div>

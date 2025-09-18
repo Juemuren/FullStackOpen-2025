@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux'
 import { Routes, Route } from 'react-router-dom'
 
 import Notification from './components/Notification'
+import LoginInfo from './components/LoginInfo'
 import BlogView from './components/BlogView'
 import UserView from './components/UserView'
 
@@ -24,6 +25,8 @@ const App = () => {
   return (
     <div>
       <Notification />
+      <h2>blogs</h2>
+      <LoginInfo />
       <Routes>
         <Route path="/" element={<BlogView />} />
         <Route path="/users" element={<UserView />} />
