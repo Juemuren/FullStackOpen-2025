@@ -4,15 +4,20 @@ import LoginInfo from './LoginInfo'
 
 const Menu = () => {
   const menuStyle = {
+    padding: '0.5em',
+    background: '#00000040',
+  }
+
+  const linkPandding = {
     paddingRight: 5,
   }
 
   return (
-    <div>
-      <Link to="/" style={menuStyle}>
+    <div style={menuStyle}>
+      <Link to="/" style={linkPandding}>
         blogs
       </Link>
-      <Link to="/users" style={menuStyle}>
+      <Link to="/users" style={linkPandding}>
         users
       </Link>
       <LoginInfo />
