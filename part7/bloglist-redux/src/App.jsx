@@ -7,6 +7,7 @@ import LoginInfo from './components/LoginInfo'
 import BlogView from './components/BlogView'
 import UserView from './components/UserView'
 import UserInfo from './components/UserInfo'
+import BlogInfo from './components/BlogInfo'
 
 import { initBlogs } from './reducers/blogReducer'
 import { initUser } from './reducers/userReducer'
@@ -37,6 +38,7 @@ const App = () => {
         <Route path="/" element={<BlogView />} />
         <Route path="/users" element={<UserView />} />
         <Route path="/users/:id" element={<UserInfo />} />
+        <Route path="/blogs/:id" element={<BlogInfo />} />
       </Routes>
     </div>
   )
