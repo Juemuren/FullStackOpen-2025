@@ -1,3 +1,5 @@
+// 此组件已弃用
+
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 
