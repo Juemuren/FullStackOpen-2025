@@ -37,7 +37,7 @@ const BlogInfo = () => {
       </div>
       <p>added by {blog.user.name}</p>
       {blog.user.username === user.username && <button onClick={handleRemove}>remove</button>}
-      <BlogComment comments={blog.comments} />
+      <BlogComment id={blog.id} comments={blog.comments} />
     </div>
   )
 }
