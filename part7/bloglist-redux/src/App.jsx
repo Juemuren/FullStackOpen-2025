@@ -13,6 +13,8 @@ import { initBlogs } from './reducers/blogReducer'
 import { initUser } from './reducers/userReducer'
 import { initUsers } from './reducers/usersReducer'
 
+import { Container } from '@mui/material'
+
 const App = () => {
   const dispatch = useDispatch()
 
@@ -30,7 +32,7 @@ const App = () => {
   }, [])
 
   return (
-    <div>
+    <Container>
       <Notification />
       <Menu />
       <h1>blog app</h1>
@@ -40,7 +42,7 @@ const App = () => {
         <Route path="/users/:id" element={<UserInfo />} />
         <Route path="/blogs/:id" element={<BlogInfo />} />
       </Routes>
-    </div>
+    </Container>
   )
 }
 

@@ -2,6 +2,8 @@ import { useDispatch } from 'react-redux'
 
 import { commentBlog } from '../reducers/blogReducer'
 
+import { Input, Button, List, ListItem } from '@mui/material'
+
 const BlogComment = ({ id, comments }) => {
   const dispatch = useDispatch()
 
@@ -16,14 +18,14 @@ const BlogComment = ({ id, comments }) => {
     <div>
       <h3>comments</h3>
       <form onSubmit={addComment}>
-        <input name="comment" />
-        <button type="submit">add comment</button>
+        <Input name="comment" />
+        <Button type="submit">add comment</Button>
       </form>
-      <ul>
+      <List>
         {comments.map((c, id) => (
-          <li key={id}>{c.content}</li>
+          <ListItem key={id}>{c.content}</ListItem>
         ))}
-      </ul>
+      </List>
     </div>
   )
 }

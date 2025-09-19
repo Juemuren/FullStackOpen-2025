@@ -5,6 +5,8 @@ import BlogComment from './BlogComment'
 
 import { deleteBlog, likeBlog } from '../reducers/blogReducer'
 
+import { Button, Card } from '@mui/material'
+
 const BlogInfo = () => {
   const dispatch = useDispatch()
   const match = useMatch('/blogs/:id')
@@ -26,19 +28,19 @@ const BlogInfo = () => {
   }
 
   return (
-    <div>
-      <h2>
+    <Card>
+      <h3>
         {blog.title} {blog.author}
-      </h2>
+      </h3>
       <a href={blog.url}>{blog.url}</a>
       <div>
         {blog.likes} likes
-        <button onClick={handleLike}>like</button>
+        <Button onClick={handleLike}>like</Button>
       </div>
       <p>added by {blog.user.name}</p>
-      {blog.user.username === user.username && <button onClick={handleRemove}>remove</button>}
+      {blog.user.username === user.username && <Button onClick={handleRemove}>remove</Button>}
       <BlogComment id={blog.id} comments={blog.comments} />
-    </div>
+    </Card>
   )
 }
 

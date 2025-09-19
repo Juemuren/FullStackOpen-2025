@@ -1,6 +1,8 @@
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 
+import { List, ListItem } from '@mui/material'
+
 const Bloglist = () => {
   const blogStyle = {
     paddingTop: 10,
@@ -18,13 +20,13 @@ const Bloglist = () => {
   })
 
   return (
-    <div>
+    <List>
       {blogs.map((blog) => (
-        <div key={blog.id} style={blogStyle}>
+        <ListItem key={blog.id} style={blogStyle}>
           <Link to={`/blogs/${blog.id}`}>{blog.title}</Link>
-        </div>
+        </ListItem>
       ))}
-    </div>
+    </List>
   )
 }
 

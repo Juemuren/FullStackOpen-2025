@@ -2,6 +2,8 @@ import { useDispatch } from 'react-redux'
 
 import { logout } from '../reducers/userReducer'
 
+import { Button } from '@mui/material'
+
 const Logout = ({ name }) => {
   const dispatch = useDispatch()
 
@@ -12,7 +14,9 @@ const Logout = ({ name }) => {
   return (
     <>
       <>{name} logged in </>
-      <button onClick={handleLogout}>logout</button>
+      <Button onClick={handleLogout} color="inherit">
+        logout
+      </Button>
     </>
   )
 }

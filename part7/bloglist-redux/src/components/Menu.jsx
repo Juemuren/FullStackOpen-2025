@@ -2,26 +2,30 @@ import { Link } from 'react-router-dom'
 
 import LoginInfo from './LoginInfo'
 
-const Menu = () => {
-  const menuStyle = {
-    padding: '0.5em',
-    background: '#00000040',
-  }
+import { AppBar, Toolbar, Button } from '@mui/material'
 
-  const linkPandding = {
-    paddingRight: 5,
-  }
+const Menu = () => {
+  // const menuStyle = {
+  //   padding: '0.5em',
+  //   background: '#00000040',
+  // }
+
+  // const linkPandding = {
+  //   paddingRight: 5,
+  // }
 
   return (
-    <div style={menuStyle}>
-      <Link to="/" style={linkPandding}>
-        blogs
-      </Link>
-      <Link to="/users" style={linkPandding}>
-        users
-      </Link>
-      <LoginInfo />
-    </div>
+    <AppBar position="static">
+      <Toolbar>
+        <Button color="inherit" component={Link} to="/">
+          blogs
+        </Button>
+        <Button color="inherit" component={Link} to="/users">
+          users
+        </Button>
+        <LoginInfo />
+      </Toolbar>
+    </AppBar>
   )
 }
 
