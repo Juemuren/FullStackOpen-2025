@@ -1,6 +1,7 @@
 import { useQuery } from '@apollo/client/react'
 
 import { ALL_AUTHORS } from '../queries'
+import AuthorForm from './AuthorForm'
 
 const Authors = (props) => {
   if (!props.show) {
@@ -34,6 +35,7 @@ const Authors = (props) => {
           ))}
         </tbody>
       </table>
+      <AuthorForm />
     </div>
   )
 }
