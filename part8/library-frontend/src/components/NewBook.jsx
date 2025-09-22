@@ -1,4 +1,7 @@
 import { useState } from 'react'
+import { useMutation } from '@apollo/client/react'
+
+import { CREATE_BOOK, ALL_BOOKS, ALL_AUTHORS } from '../queries'
 
 const NewBook = (props) => {
   const [title, setTitle] = useState('')
@@ -6,6 +9,10 @@ const NewBook = (props) => {
   const [published, setPublished] = useState('')
   const [genre, setGenre] = useState('')
   const [genres, setGenres] = useState([])
+
+  const [createBook] = useMutation(CREATE_BOOK, {
+    refetchQueries: [{ query: ALL_BOOKS }, { query: ALL_AUTHORS }],
+  })
 
   if (!props.show) {
     return null
@@ -15,6 +22,7 @@ const NewBook = (props) => {
     event.preventDefault()
 
     console.log('add book...')
+    createBook({ variables: { title, author, published: Number(published), genres } })
 
     setTitle('')
     setPublished('')
@@ -33,31 +41,18 @@ const NewBook = (props) => {
       <form onSubmit={submit}>
         <div>
           title
-          <input
-            value={title}
-            onChange={({ target }) => setTitle(target.value)}
-          />
+          <input value={title} onChange={({ target }) => setTitle(target.value)} />
         </div>
         <div>
           author
-          <input
-            value={author}
-            onChange={({ target }) => setAuthor(target.value)}
-          />
+          <input value={author} onChange={({ target }) => setAuthor(target.value)} />
         </div>
         <div>
           published
-          <input
-            type="number"
-            value={published}
-            onChange={({ target }) => setPublished(target.value)}
-          />
+          <input type="number" value={published} onChange={({ target }) => setPublished(target.value)} />
         </div>
         <div>
-          <input
-            value={genre}
-            onChange={({ target }) => setGenre(target.value)}
-          />
+          <input value={genre} onChange={({ target }) => setGenre(target.value)} />
           <button onClick={addGenre} type="button">
             add genre
           </button>
