@@ -5,6 +5,8 @@ import Books from './components/Books'
 import NewBook from './components/NewBook'
 import LoginForm from './components/LoginForm'
 import Recommend from './components/Recommend'
+import BooksGQL from './components/BooksGraphQL'
+import RecommendGQL from './components/RecommendGraphQL'
 
 const App = () => {
   const [page, setPage] = useState('authors')
@@ -33,7 +35,9 @@ const App = () => {
       </div>
       <Authors show={page === 'authors'} />
       <Books show={page === 'books'} />
+      <BooksGQL show={page === 'books'} />
       <Recommend show={page === 'recommend'} />
+      <RecommendGQL show={page === 'recommend'} />
       <NewBook show={page === 'add'} />
       <LoginForm show={page === 'login'} setToken={setToken} />
     </div>
