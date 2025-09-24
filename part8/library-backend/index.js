@@ -1,6 +1,6 @@
 const { ApolloServer } = require('@apollo/server')
 const { startStandaloneServer } = require('@apollo/server/standalone')
-const { v1: uuid } = require('uuid')
+const { GraphQLError } = require('graphql')
 
 const jwt = require('jsonwebtoken')
 const mongoose = require('mongoose')
@@ -103,13 +103,34 @@ const resolvers = {
 
       if (!foundAuthor) {
         const author = new Author({ name: args.author })
-        await author.save()
+        try {
+          await author.save()
+        } catch (error) {
+          throw new GraphQLError('Saving author failed', {
+            extensions: {
+              code: 'BAD_USER_INPUT',
+              invalidArgs: args.author,
+              error,
+            },
+          })
+        }
         book = new Book({ ...args, author: author })
       } else {
         book = new Book({ ...args, author: foundAuthor })
       }
 
-      await book.save()
+      try {
+        await book.save()
+      } catch (error) {
+        throw new GraphQLError('Saving book failed', {
+          extensions: {
+            code: 'BAD_USER_INPUT',
+            invalidArgs: args.title,
+            error,
+          },
+        })
+      }
+
       return book
     },
     editAuthor: async (root, args) => {
