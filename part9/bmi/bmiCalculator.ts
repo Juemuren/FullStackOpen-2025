@@ -16,7 +16,7 @@ interface args {
     weight: number
 }
 
-export const parseArguments = (args: string[]): args => {
+const parseArguments = (args: string[]): args => {
     if (args.length < 4) throw new Error('Not enough arguments')
     if (args.length > 4) throw new Error('Too many arguments')
 
@@ -31,8 +31,10 @@ export const parseArguments = (args: string[]): args => {
 }
 
 try {
-    const { height, weight } = parseArguments(process.argv);
-    console.log(calculateBmi(height, weight));
+    if (require.main === module) {
+        const { height, weight } = parseArguments(process.argv);
+        console.log(calculateBmi(height, weight));
+    }
 } catch (error: unknown) {
     let errorMessage = 'Something bad happened.'
     if (error instanceof Error) {
@@ -40,3 +42,5 @@ try {
     }
     console.log(errorMessage);
 }
+
+export default calculateBmi
