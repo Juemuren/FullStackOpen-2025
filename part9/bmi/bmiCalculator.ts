@@ -11,12 +11,12 @@ const calculateBmi = (height: number, weight: number): string => {
   }
 };
 
-interface args {
+interface BmiArgs {
   height: number;
   weight: number;
 }
 
-const parseArguments = (args: string[]): args => {
+const parseArguments = (args: string[]): BmiArgs => {
   if (args.length < 4) throw new Error('Not enough arguments');
   if (args.length > 4) throw new Error('Too many arguments');
 
