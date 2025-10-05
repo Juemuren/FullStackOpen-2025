@@ -1,0 +1,10 @@
+POST http://localhost:3001/api/patients
+Content-Type: application/json
+
+{
+    "name": "Li Tiansuo",
+    "dateOfBirth": "1145-07-21",
+    "ssn": "114514-1919",
+    "gender": "male",
+    "occupation": "Xia Bei Ze"
+}
