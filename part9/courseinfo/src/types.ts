@@ -3,14 +3,43 @@ export interface HeaderProps {
 }
 
 export interface PartProps {
+  part: CoursePart;
+}
+
+export interface ContentProps {
+  parts: CoursePart[];
+}
+
+export interface TotalProps {
+  parts: CoursePart[];
+}
+
+interface CoursePartBase {
   name: string;
   exerciseCount: number;
 }
 
-export interface ContentProps {
-  parts: PartProps[];
+interface CoursePartWithDescription extends CoursePartBase {
+  description: string;
 }
 
-export interface TotalProps {
-  parts: PartProps[];
+interface CoursePartBasic extends CoursePartWithDescription {
+  kind: 'basic';
 }
+
+interface CoursePartGroup extends CoursePartBase {
+  groupProjectCount: number;
+  kind: 'group';
+}
+
+interface CoursePartBackground extends CoursePartWithDescription {
+  backgroundMaterial: string;
+  kind: 'background';
+}
+
+interface CoursePartSpecial extends CoursePartWithDescription {
+  requirements: string[];
+  kind: 'special';
+}
+
+export type CoursePart = CoursePartBasic | CoursePartGroup | CoursePartBackground | CoursePartSpecial;
