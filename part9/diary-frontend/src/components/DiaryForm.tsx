@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { createDiary } from '../services/diaryServices';
 
 import { isAxiosError } from 'axios';
-import { type NonSensitiveDiaryEntry, type NewDiaryEntry } from '../types';
+import { type NonSensitiveDiaryEntry, type NewDiaryEntry, Visibility, Weather } from '../types';
 
 interface DiaryFormProps {
   diaries: NonSensitiveDiaryEntry[];
@@ -48,13 +48,37 @@ const DiaryForm = ({ diaries, setDiaries, setNotification }: DiaryFormProps) => 
       <h2>Add new entry</h2>
       <form onSubmit={diaryCreation}>
         <div>
-          data: <input value={date} onChange={(event) => setDate(event.target.value)} />
+          date: <input type="date" value={date} onChange={(event) => setDate(event.target.value)} />
         </div>
         <div>
-          visibility: <input value={visibility} onChange={(event) => setVisibility(event.target.value)} />
+          visibility:
+          {Object.values(Visibility).map((v) => (
+            <span key={v}>
+              <input
+                type="radio"
+                id={v}
+                name="visibility"
+                value={v}
+                onChange={(event) => setVisibility(event.target.value)}
+              />
+              <label>{v}</label>
+            </span>
+          ))}
         </div>
         <div>
-          weather: <input value={weather} onChange={(event) => setWeather(event.target.value)} />
+          weather:
+          {Object.values(Weather).map((w) => (
+            <span key={w}>
+              <input
+                type="radio"
+                id={w}
+                name="weather"
+                value={w}
+                onChange={(event) => setWeather(event.target.value)}
+              />
+              <label>{w}</label>
+            </span>
+          ))}
         </div>
         <div>
           comment: <input value={comment} onChange={(event) => setComment(event.target.value)} />
