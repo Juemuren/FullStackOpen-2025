@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { getAllDiaries } from './services/diaryServices';
 
+import DiaryForm from './components/DiaryForm';
+
 import { type NonSensitiveDiaryEntry } from './types';
 
 const App = () => {
@@ -14,6 +16,7 @@ const App = () => {
 
   return (
     <div>
+      <DiaryForm diaries={diaries} setDiaries={setDiaries} />
       <h2>Diary entries</h2>
       <ul>
         {diaries.map((note) => (
