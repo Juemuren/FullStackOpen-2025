@@ -2,7 +2,16 @@ import { useState } from 'react';
 
 import { createDiary } from '../services/diaryServices';
 
-const DiaryForm = ({ diaries, setDiaries }) => {
+import { isAxiosError } from 'axios';
+import { type NonSensitiveDiaryEntry, type NewDiaryEntry } from '../types';
+
+interface DiaryFormProps {
+  diaries: NonSensitiveDiaryEntry[];
+  setDiaries: React.Dispatch<React.SetStateAction<NonSensitiveDiaryEntry[]>>;
+  setNotification: React.Dispatch<React.SetStateAction<string>>;
+}
+
+const DiaryForm = ({ diaries, setDiaries, setNotification }: DiaryFormProps) => {
   const [date, setDate] = useState('');
   const [visibility, setVisibility] = useState('');
   const [weather, setWeather] = useState('');
@@ -15,15 +24,23 @@ const DiaryForm = ({ diaries, setDiaries }) => {
       visibility,
       weather,
       comment,
-    };
+    } as NewDiaryEntry;
 
-    createDiary(newEntry).then((data) => {
-      setDiaries(diaries.concat(data));
-    });
-    setDate('');
-    setVisibility('');
-    setWeather('');
-    setComment('');
+    createDiary(newEntry)
+      .then((data) => {
+        setDiaries(diaries.concat(data));
+        setDate('');
+        setVisibility('');
+        setWeather('');
+        setComment('');
+      })
+      .catch((error) => {
+        if (isAxiosError(error)) {
+          setNotification(error.response?.data);
+        } else {
+          console.log(error);
+        }
+      });
   };
 
   return (
