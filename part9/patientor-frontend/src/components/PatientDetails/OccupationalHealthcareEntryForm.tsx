@@ -3,15 +3,19 @@ import { isAxiosError } from 'axios';
 
 import patientService from '../../services/patients';
 
-import { Alert, TextField, Grid, Button } from '@mui/material';
-import { Patient, EntryType } from '../../types';
+import { Alert, TextField, Grid, Button, Input, InputLabel } from '@mui/material';
+import { Patient, EntryType, Diagnosis } from '../../types';
+
+import DiagnosisCodesSelector from './DiagnosisCodesSelector';
+
 interface Props {
   id: string;
   patient: Patient;
   setPatient: React.Dispatch<React.SetStateAction<Patient>>;
+  diagnoses: Diagnosis[];
 }
 
-const OccupationalHealthcareEntryForm = ({ id, patient, setPatient }: Props) => {
+const OccupationalHealthcareEntryForm = ({ id, patient, setPatient, diagnoses }: Props) => {
   const [error, setError] = useState(null);
   const [description, setDescription] = useState('');
   const [date, setDate] = useState('');
@@ -19,7 +23,7 @@ const OccupationalHealthcareEntryForm = ({ id, patient, setPatient }: Props) => 
   const [employerName, setEmployerName] = useState('');
   const [sickLeaveStartDate, setSickLeaveStartDate] = useState('');
   const [sickLeaveEndDate, setSickLeaveEndDate] = useState('');
-  const [diagnosisCodes, setDiagnosisCodes] = useState('');
+  const [diagnosisCodes, setDiagnosisCodes] = useState<string[]>([]);
 
   const onSubmit = async (event: SyntheticEvent) => {
     event.preventDefault();
@@ -35,7 +39,7 @@ const OccupationalHealthcareEntryForm = ({ id, patient, setPatient }: Props) => 
               endDate: sickLeaveEndDate,
             }
           : undefined,
-      diagnosisCodes: diagnosisCodes ? diagnosisCodes.split(',') : [],
+      diagnosisCodes,
       type: EntryType.OccupationalHealthcare as const,
     };
     try {
@@ -60,7 +64,7 @@ const OccupationalHealthcareEntryForm = ({ id, patient, setPatient }: Props) => 
     setEmployerName('');
     setSickLeaveStartDate('');
     setSickLeaveEndDate('');
-    setDiagnosisCodes('');
+    setDiagnosisCodes([]);
   };
 
   return (
@@ -74,7 +78,8 @@ const OccupationalHealthcareEntryForm = ({ id, patient, setPatient }: Props) => 
           value={description}
           onChange={({ target }) => setDescription(target.value)}
         />
-        <TextField label="Date" fullWidth value={date} onChange={({ target }) => setDate(target.value)} />
+        <InputLabel style={{ marginTop: 20 }}>Date</InputLabel>
+        <Input type="date" fullWidth value={date} onChange={({ target }) => setDate(target.value)} />
         <TextField
           label="Specialist"
           fullWidth
@@ -87,23 +92,26 @@ const OccupationalHealthcareEntryForm = ({ id, patient, setPatient }: Props) => 
           value={employerName}
           onChange={({ target }) => setEmployerName(target.value)}
         />
-        <TextField
-          label="Sickleave start"
+
+        <InputLabel style={{ marginTop: 20 }}>Sickleave start date</InputLabel>
+        <Input
+          type="date"
           fullWidth
           value={sickLeaveStartDate}
           onChange={({ target }) => setSickLeaveStartDate(target.value)}
         />
-        <TextField
-          label="Sickleave end"
+        <InputLabel style={{ marginTop: 20 }}>Sickleave end date</InputLabel>
+        <Input
+          type="date"
           fullWidth
           value={sickLeaveEndDate}
           onChange={({ target }) => setSickLeaveEndDate(target.value)}
         />
-        <TextField
-          label="Diagnosis codes"
-          fullWidth
-          value={diagnosisCodes}
-          onChange={({ target }) => setDiagnosisCodes(target.value)}
+
+        <DiagnosisCodesSelector
+          diagnoses={diagnoses}
+          diagnosisCodes={diagnosisCodes}
+          setDiagnosisCodes={setDiagnosisCodes}
         />
         <Grid>
           <Grid item>

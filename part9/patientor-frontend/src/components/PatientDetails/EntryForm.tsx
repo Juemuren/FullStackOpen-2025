@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import { Select, SelectChangeEvent, MenuItem } from '@mui/material';
 
-import { Patient, EntryType } from '../../types';
+import { Patient, EntryType, Diagnosis } from '../../types';
 import HealthCheckEntryForm from './HealthCheckEntryForm';
 import HospitalEntryForm from './HospitalEntryForm';
 import OccupationalHealthcareEntryForm from './OccupationalHealthcareEntryForm';
@@ -11,9 +11,10 @@ interface Props {
   id: string;
   patient: Patient;
   setPatient: React.Dispatch<React.SetStateAction<Patient>>;
+  diagnoses: Diagnosis[];
 }
 
-const EntryForm = ({ id, patient, setPatient }: Props) => {
+const EntryForm = ({ id, patient, setPatient, diagnoses }: Props) => {
   const [type, setType] = useState<EntryType>(EntryType.HealthCheck);
 
   const typeOptions = Object.values(EntryType).map((v) => ({
@@ -32,7 +33,7 @@ const EntryForm = ({ id, patient, setPatient }: Props) => {
     }
   };
 
-  const selectSection = () => (
+  const typeSelector = () => (
     <Select label="Type" fullWidth value={type} onChange={handleType}>
       {typeOptions.map((option) => (
         <MenuItem key={option.label} value={option.value}>
@@ -46,22 +47,22 @@ const EntryForm = ({ id, patient, setPatient }: Props) => {
     case EntryType.HealthCheck:
       return (
         <div>
-          {selectSection()}
-          <HealthCheckEntryForm id={id} patient={patient} setPatient={setPatient} />
+          {typeSelector()}
+          <HealthCheckEntryForm id={id} patient={patient} setPatient={setPatient} diagnoses={diagnoses} />
         </div>
       );
     case EntryType.Hospital:
       return (
         <div>
-          {selectSection()}
-          <HospitalEntryForm id={id} patient={patient} setPatient={setPatient} />
+          {typeSelector()}
+          <HospitalEntryForm id={id} patient={patient} setPatient={setPatient} diagnoses={diagnoses} />
         </div>
       );
     case EntryType.OccupationalHealthcare:
       return (
         <div>
-          {selectSection()}
-          <OccupationalHealthcareEntryForm id={id} patient={patient} setPatient={setPatient} />
+          {typeSelector()}
+          <OccupationalHealthcareEntryForm id={id} patient={patient} setPatient={setPatient} diagnoses={diagnoses} />
         </div>
       );
   }

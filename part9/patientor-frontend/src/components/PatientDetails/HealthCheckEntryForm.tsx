@@ -3,21 +3,25 @@ import { isAxiosError } from 'axios';
 
 import patientService from '../../services/patients';
 
-import { Alert, TextField, Grid, Button } from '@mui/material';
-import { Patient, EntryType } from '../../types';
+import { Alert, TextField, Grid, Button, Input, InputLabel } from '@mui/material';
+import { Patient, EntryType, Diagnosis } from '../../types';
+
+import DiagnosisCodesSelector from './DiagnosisCodesSelector';
+
 interface Props {
   id: string;
   patient: Patient;
   setPatient: React.Dispatch<React.SetStateAction<Patient>>;
+  diagnoses: Diagnosis[];
 }
 
-const HealthCheckEntryForm = ({ id, patient, setPatient }: Props) => {
+const HealthCheckEntryForm = ({ id, patient, setPatient, diagnoses }: Props) => {
   const [error, setError] = useState(null);
   const [description, setDescription] = useState('');
   const [date, setDate] = useState('');
   const [specialist, setSpecialist] = useState('');
   const [healthCheckRating, setHealthCheckRating] = useState('');
-  const [diagnosisCodes, setDiagnosisCodes] = useState('');
+  const [diagnosisCodes, setDiagnosisCodes] = useState<string[]>([]);
 
   const onSubmit = async (event: SyntheticEvent) => {
     event.preventDefault();
@@ -26,7 +30,7 @@ const HealthCheckEntryForm = ({ id, patient, setPatient }: Props) => {
       date,
       specialist,
       healthCheckRating: Number(healthCheckRating),
-      diagnosisCodes: diagnosisCodes ? diagnosisCodes.split(',') : [],
+      diagnosisCodes,
       type: EntryType.HealthCheck as const,
     };
     try {
@@ -49,7 +53,7 @@ const HealthCheckEntryForm = ({ id, patient, setPatient }: Props) => {
     setDate('');
     setSpecialist('');
     setHealthCheckRating('');
-    setDiagnosisCodes('');
+    setDiagnosisCodes([]);
   };
 
   return (
@@ -63,7 +67,10 @@ const HealthCheckEntryForm = ({ id, patient, setPatient }: Props) => {
           value={description}
           onChange={({ target }) => setDescription(target.value)}
         />
-        <TextField label="Date" fullWidth value={date} onChange={({ target }) => setDate(target.value)} />
+
+        <InputLabel style={{ marginTop: 20 }}>Date</InputLabel>
+        <Input type="date" fullWidth value={date} onChange={({ target }) => setDate(target.value)} />
+
         <TextField
           label="Specialist"
           fullWidth
@@ -76,12 +83,13 @@ const HealthCheckEntryForm = ({ id, patient, setPatient }: Props) => {
           value={healthCheckRating}
           onChange={({ target }) => setHealthCheckRating(target.value)}
         />
-        <TextField
-          label="Diagnosis codes"
-          fullWidth
-          value={diagnosisCodes}
-          onChange={({ target }) => setDiagnosisCodes(target.value)}
+
+        <DiagnosisCodesSelector
+          diagnoses={diagnoses}
+          diagnosisCodes={diagnosisCodes}
+          setDiagnosisCodes={setDiagnosisCodes}
         />
+
         <Grid>
           <Grid item>
             <Button

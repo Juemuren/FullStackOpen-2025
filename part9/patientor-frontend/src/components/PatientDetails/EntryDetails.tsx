@@ -1,9 +1,7 @@
-import { useState, useEffect } from 'react';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import MedicalServicesIcon from '@mui/icons-material/MedicalServices';
 import LocalHospitalIcon from '@mui/icons-material/LocalHospital';
 import WorkIcon from '@mui/icons-material/Work';
-import diagnosisService from '../../services/diagnoses';
 
 import { Entry, Diagnosis, HealthCheckEntry, HospitalEntry, OccupationalHealthcareEntry } from '../../types';
 
@@ -120,20 +118,10 @@ const OccupationalHealthcareEntryDetails = ({ entry, diagnoses }: OccupationalHe
 
 interface Props {
   entry: Entry;
+  diagnoses: Diagnosis[];
 }
 
-const EntryDetails = ({ entry }: Props) => {
-  const [diagnoses, setDiagnoses] = useState<Diagnosis[]>();
-
-  useEffect(() => {
-    const fetchDiagnoses = async () => {
-      const diagnoses = await diagnosisService.getAll();
-      setDiagnoses(diagnoses);
-    };
-
-    fetchDiagnoses();
-  }, []);
-
+const EntryDetails = ({ entry, diagnoses }: Props) => {
   switch (entry.type) {
     case 'HealthCheck':
       return <HealthCheckEntryDetails entry={entry} diagnoses={diagnoses!} />;
