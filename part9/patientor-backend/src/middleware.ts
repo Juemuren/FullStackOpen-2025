@@ -28,7 +28,7 @@ export const newEntryParser = (req: Request<Params>, _res: Response, next: NextF
 
 export const errorMiddleware = (error: unknown, _req: Request, res: Response, next: NextFunction) => {
   if (error instanceof z.ZodError) {
-    res.status(400).send({ error: error.issues });
+    res.status(400).send(error.issues[0].message);
   } else {
     next(error);
   }

@@ -7,6 +7,7 @@ import patientService from '../../services/patients';
 import { Patient } from '../../types';
 
 import EntryDetails from './EntryDetails';
+import EntryForm from './EntryForm';
 
 const PatientDetails = () => {
   const [patient, setPatient] = useState<Patient>();
@@ -34,7 +35,12 @@ const PatientDetails = () => {
     }
   };
 
-  const style = {
+  const entryFormStyle = {
+    border: 'dashed',
+    padding: 10,
+  };
+
+  const entryStyle = {
     border: 'solid',
     padding: 10,
     borderWidth: 2,
@@ -50,9 +56,18 @@ const PatientDetails = () => {
       </h2>
       <p>ssn: {patient?.ssn}</p>
       <p>occupation: {patient?.occupation}</p>
+      <div style={entryFormStyle}>
+        {patient?.id && (
+          <EntryForm
+            id={patient?.id}
+            patient={patient}
+            setPatient={setPatient as React.Dispatch<React.SetStateAction<Patient>>}
+          />
+        )}
+      </div>
       <h3>entries</h3>
       {patient?.entries.map((e) => (
-        <div key={e.id} style={style}>
+        <div key={e.id} style={entryStyle}>
           <EntryDetails entry={e} />
         </div>
       ))}
