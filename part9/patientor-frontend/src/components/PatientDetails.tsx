@@ -3,11 +3,14 @@ import { useMatch } from 'react-router-dom';
 import MaleIcon from '@mui/icons-material/Male';
 import FemaleIcon from '@mui/icons-material/Female';
 import patientService from '../services/patients';
+import diagnosisService from '../services/diagnoses';
 
-import { Patient } from '../types';
+import { Patient, Diagnosis } from '../types';
 
 const PatientDetails = () => {
   const [patient, setPatient] = useState<Patient>();
+  const [diagnoses, setDiagnoses] = useState<Diagnosis[]>();
+
   const match = useMatch('/patients/:id');
   const id = match?.params.id as string;
 
@@ -16,8 +19,18 @@ const PatientDetails = () => {
       const patient = await patientService.getByID(id);
       setPatient(patient);
     };
+
     fetchPatient(id);
   }, [id]);
+
+  useEffect(() => {
+    const fetchDiagnoses = async () => {
+      const diagnoses = await diagnosisService.getAll();
+      setDiagnoses(diagnoses);
+    };
+
+    fetchDiagnoses();
+  }, []);
 
   const genderIcon = (gender: string | undefined) => {
     switch (gender) {
@@ -45,7 +58,10 @@ const PatientDetails = () => {
           <i> {e.description}</i>
           <ul>
             {e.diagnosisCodes?.map((d) => (
-              <li key={d}>{d}</li>
+              <li key={d}>
+                <span>{d} </span>
+                <span>{diagnoses?.find((dia) => dia.code === d)?.name}</span>
+              </li>
             ))}
           </ul>
         </div>
