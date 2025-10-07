@@ -2,14 +2,14 @@ import { useState, useEffect } from 'react';
 import { useMatch } from 'react-router-dom';
 import MaleIcon from '@mui/icons-material/Male';
 import FemaleIcon from '@mui/icons-material/Female';
-import patientService from '../services/patients';
-import diagnosisService from '../services/diagnoses';
+import patientService from '../../services/patients';
 
-import { Patient, Diagnosis } from '../types';
+import { Patient } from '../../types';
+
+import EntryDetails from './EntryDetails';
 
 const PatientDetails = () => {
   const [patient, setPatient] = useState<Patient>();
-  const [diagnoses, setDiagnoses] = useState<Diagnosis[]>();
 
   const match = useMatch('/patients/:id');
   const id = match?.params.id as string;
@@ -23,15 +23,6 @@ const PatientDetails = () => {
     fetchPatient(id);
   }, [id]);
 
-  useEffect(() => {
-    const fetchDiagnoses = async () => {
-      const diagnoses = await diagnosisService.getAll();
-      setDiagnoses(diagnoses);
-    };
-
-    fetchDiagnoses();
-  }, []);
-
   const genderIcon = (gender: string | undefined) => {
     switch (gender) {
       case 'male':
@@ -41,6 +32,14 @@ const PatientDetails = () => {
       default:
         break;
     }
+  };
+
+  const style = {
+    border: 'solid',
+    padding: 10,
+    borderWidth: 2,
+    margin: 5,
+    borderRadius: 10,
   };
 
   return (
@@ -53,17 +52,8 @@ const PatientDetails = () => {
       <p>occupation: {patient?.occupation}</p>
       <h3>entries</h3>
       {patient?.entries.map((e) => (
-        <div key={e.id}>
-          <span>{e.date}</span>
-          <i> {e.description}</i>
-          <ul>
-            {e.diagnosisCodes?.map((d) => (
-              <li key={d}>
-                <span>{d} </span>
-                <span>{diagnoses?.find((dia) => dia.code === d)?.name}</span>
-              </li>
-            ))}
-          </ul>
+        <div key={e.id} style={style}>
+          <EntryDetails entry={e} />
         </div>
       ))}
     </div>
