@@ -38,6 +38,7 @@ const PatientDetails = () => {
   const entryFormStyle = {
     border: 'dashed',
     padding: 10,
+    paddingBottom: '80px',
   };
 
   const entryStyle = {

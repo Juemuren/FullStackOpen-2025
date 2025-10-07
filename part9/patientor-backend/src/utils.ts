@@ -18,20 +18,18 @@ const NewBaseEntrySchema = z.object({
   diagnosisCodes: z.array(z.string()).optional(),
 });
 
-const HealthCheckRatingSchema = z.enum(HealthCheckRating);
-
 const HealthCheckEntrySchema = NewBaseEntrySchema.extend({
   type: z.literal('HealthCheck'),
-  healthCheckRating: HealthCheckRatingSchema,
+  healthCheckRating: z.enum(HealthCheckRating),
 });
 
 const OccupationalHealthcareEntrySchema = NewBaseEntrySchema.extend({
   type: z.literal('OccupationalHealthcare'),
-  employerName: z.string(),
+  employerName: z.string().min(3),
   sickLeave: z
     .object({
-      startDate: z.string(),
-      endDate: z.string(),
+      startDate: z.iso.date(),
+      endDate: z.iso.date(),
     })
     .optional(),
 });
@@ -39,8 +37,8 @@ const OccupationalHealthcareEntrySchema = NewBaseEntrySchema.extend({
 const HospitalEntrySchema = NewBaseEntrySchema.extend({
   type: z.literal('Hospital'),
   discharge: z.object({
-    date: z.string(),
-    criteria: z.string(),
+    date: z.iso.date(),
+    criteria: z.string().min(5),
   }),
 });
 

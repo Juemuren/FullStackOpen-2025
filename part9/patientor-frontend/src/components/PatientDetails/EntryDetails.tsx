@@ -64,6 +64,11 @@ const HospitalEntryDetails = ({ entry, diagnoses }: HospitalEntryProps) => {
       <p>
         <i>{entry.description}</i>
       </p>
+      <div>
+        <p>discharge</p>
+        <p>date: {entry.discharge.date}</p>
+        <p>criteria: {entry.discharge.criteria}</p>
+      </div>
       <ul>
         {entry.diagnosisCodes?.map((d) => (
           <li key={d}>
@@ -93,6 +98,13 @@ const OccupationalHealthcareEntryDetails = ({ entry, diagnoses }: OccupationalHe
       <p>
         <i>{entry.description}</i>
       </p>
+      {entry.sickLeave !== undefined && (
+        <div>
+          <p>sickleave</p>
+          <p>start: {entry.sickLeave?.startDate}</p>
+          <p>end: {entry.sickLeave?.endDate}</p>
+        </div>
+      )}
       <ul>
         {entry.diagnosisCodes?.map((d) => (
           <li key={d}>
