@@ -1,0 +1,35 @@
+POST http://localhost:3001/api/patients/d2773822-f723-11e9-8f0b-362b9e155667/entries
+Content-Type: application/json
+
+{
+    "date": "2025-10-25",
+    "specialist": "Red",
+    "type": "HealthCheck",
+    "description": "Just test",
+    "healthCheckRating": 3
+}
+
+###
+
+POST http://localhost:3001/api/patients/d2773822-f723-11e9-8f0b-362b9e155667/entries
+Content-Type: application/json
+
+{
+    "date": "2025-10-25",
+    "specialist": "Red",
+    "type": "Wrong type",
+    "description": "Just test",
+    "healthCheckRating": 3
+}
+
+###
+
+POST http://localhost:3001/api/patients/d2773822-f723-11e9-8f0b-362b9e155667/entries
+Content-Type: application/json
+
+{
+    "specialist": "Red",
+    "type": "HealthCheck",
+    "description": "Just test",
+    "healthCheckRating": 3
+}

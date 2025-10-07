@@ -1,12 +1,25 @@
 import z from 'zod';
 
-import { newPatientSchema } from './utils';
+import { NewPatientSchema, NewEntrySchema } from './utils';
 
 import { Response, Request, NextFunction } from 'express';
 
 export const newPatientParser = (req: Request, _res: Response, next: NextFunction) => {
   try {
-    newPatientSchema.parse(req.body);
+    NewPatientSchema.parse(req.body);
+    next();
+  } catch (error: unknown) {
+    next(error);
+  }
+};
+
+interface Params {
+  id: string;
+}
+
+export const newEntryParser = (req: Request<Params>, _res: Response, next: NextFunction) => {
+  try {
+    NewEntrySchema.parse(req.body);
     next();
   } catch (error: unknown) {
     next(error);
