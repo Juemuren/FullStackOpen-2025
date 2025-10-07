@@ -8,6 +8,7 @@ export const newPatientSchema = z.object({
   ssn: z.string().regex(/^\d{6}-\d{2,3}[A-Z0-9]$/),
   gender: z.enum(Gender),
   occupation: z.string(),
+  entries: z.any(), // HACK
 });
 
 const toNewPatient = (object: unknown): NewPatient => {
