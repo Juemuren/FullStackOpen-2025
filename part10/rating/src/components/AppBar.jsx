@@ -1,10 +1,13 @@
-import { View, StyleSheet, Pressable, Text } from 'react-native';
+import { View, StyleSheet, Text } from 'react-native';
+import { Link } from 'react-router-native';
 import Constants from 'expo-constants';
 
 import theme from '../theme';
 
 const styles = StyleSheet.create({
   container: {
+    display: 'flex',
+    flexDirection: 'row',
     paddingTop: Constants.statusBarHeight,
     backgroundColor: theme.colors.textPrimary,
   },
@@ -18,9 +21,12 @@ const styles = StyleSheet.create({
 const AppBar = () => {
   return (
     <View style={styles.container}>
-      <Pressable>
+      <Link to="/">
         <Text style={styles.text}>Repositories</Text>
-      </Pressable>
+      </Link>
+      <Link to="/sign">
+        <Text style={styles.text}>Sign in</Text>
+      </Link>
     </View>
   );
 };
