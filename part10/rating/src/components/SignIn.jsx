@@ -1,5 +1,6 @@
 import { View, Pressable, TextInput, Button, StyleSheet } from 'react-native';
 import { useFormik } from 'formik';
+import * as yup from 'yup';
 
 import Text from './Text';
 import theme from '../theme';
@@ -8,6 +9,11 @@ const initialValues = {
   username: '',
   password: '',
 };
+
+const validationSchema = yup.object().shape({
+  username: yup.number().required('Username is required'),
+  password: yup.number().required('Password is required'),
+});
 
 const onSubmit = (values) => {
   console.log(values);
@@ -27,6 +33,9 @@ const styles = StyleSheet.create({
     borderStyle: 'solid',
     fontSize: theme.fontSizes.body,
   },
+  inputError: {
+    borderColor: theme.colors.error,
+  },
   button: {
     padding: 20,
     borderRadius: 5,
@@ -37,29 +46,35 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     fontSize: theme.fontSizes.subheading,
   },
+  error: {
+    color: theme.colors.error,
+  },
 });
 
 const SignIn = () => {
   const formik = useFormik({
     initialValues,
+    validationSchema,
     onSubmit,
   });
 
   return (
     <View style={styles.container}>
       <TextInput
-        style={styles.input}
+        style={[styles.input, formik.touched.username && formik.errors.username && styles.inputError]}
         placeholder="Username"
         value={formik.values.username}
         onChangeText={formik.handleChange('username')}
       />
+      {formik.touched.username && formik.errors.username && <Text style={styles.error}>{formik.errors.username}</Text>}
       <TextInput
         secureTextEntry
-        style={styles.input}
+        style={[styles.input, formik.touched.password && formik.errors.password && styles.inputError]}
         placeholder="Password"
         value={formik.values.password}
         onChangeText={formik.handleChange('password')}
       />
+      {formik.touched.password && formik.errors.password && <Text style={styles.error}>{formik.errors.password}</Text>}
       <Pressable style={styles.button} onPress={formik.handleSubmit}>
         <Text style={styles.text}>Sign in</Text>
       </Pressable>
