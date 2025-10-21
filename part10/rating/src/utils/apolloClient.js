@@ -4,7 +4,7 @@ import Config from '../config';
 
 const createApolloClient = () => {
   return new ApolloClient({
-    link: new HttpLink({ uri: `http://${Config.IP}:4000/graphql` }),
+    link: new HttpLink({ uri: Config.APOLLO_URI }),
     cache: new InMemoryCache(),
   });
 };
