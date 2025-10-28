@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
 const ItemSeparator = () => <View style={styles.separator} />;
 const RepositoryItemPressable = ({ item }) => {
   const navi = useNavigate();
-  const onPress = () => navi(`/repos/${item.id}`);
+  const onPress = () => navi(`/repositories/${item.id}`);
 
   return (
     <Pressable onPress={onPress}>

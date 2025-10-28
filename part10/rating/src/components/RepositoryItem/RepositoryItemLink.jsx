@@ -1,8 +1,8 @@
 import { Pressable, View, StyleSheet } from 'react-native';
 import { openURL } from 'expo-linking';
 
-import Text from './Text';
-import theme from '../theme';
+import Text from '../Text';
+import theme from '../../theme';
 
 const styles = StyleSheet.create({
   container: {

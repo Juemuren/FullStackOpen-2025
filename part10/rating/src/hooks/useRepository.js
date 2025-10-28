@@ -10,12 +10,12 @@ const useRepository = (id) => {
     fetchPolicy: 'cache-and-network',
   });
 
-  if (loading) return { repo: null, loading, refetch };
-  if (error) return { repositories: null, loading, refetch };
+  if (loading) return { repository: null, loading, refetch };
+  if (error) return { repository: null, loading, refetch };
 
-  const repo = data?.repository;
+  const repository = data?.repository;
 
-  return { repo, loading, refetch };
+  return { repository, loading, refetch };
 };
 
 export default useRepository;
