@@ -20,6 +20,19 @@ export const GET_REPOSITORIES = gql`
   }
 `;
 
+export const SEARCH_REPOSITORIES = gql`
+  query Repositories($searchKeyword: String) {
+    repositories(searchKeyword: $searchKeyword) {
+      edges {
+        node {
+          id
+          fullName
+        }
+      }
+    }
+  }
+`;
+
 export const GET_ME = gql`
   query {
     me {

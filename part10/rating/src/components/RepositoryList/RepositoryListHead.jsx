@@ -1,5 +1,6 @@
 import { StyleSheet } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
+import { Searchbar } from 'react-native-paper';
 
 const styles = StyleSheet.create({
   pickerContainer: {
@@ -8,6 +9,11 @@ const styles = StyleSheet.create({
     borderWidth: 0,
     height: 75,
     margin: 5,
+  },
+  searchBar: {
+    margin: 10,
+    backgroundColor: 'white',
+    borderRadius: 5,
   },
 });
 
@@ -28,4 +34,18 @@ const PickerOrder = ({ orderKey, setOrderKey }) => {
   );
 };
 
-export default PickerOrder;
+const RepositoryListHead = ({ searchKeyword, setSearchKeyword, orderKey, setOrderKey }) => {
+  return (
+    <>
+      <Searchbar
+        style={styles.searchBar}
+        placeholder="Search repository"
+        onChangeText={setSearchKeyword}
+        value={searchKeyword}
+      />
+      <PickerOrder orderKey={orderKey} setOrderKey={setOrderKey} />
+    </>
+  );
+};
+
+export default RepositoryListHead;

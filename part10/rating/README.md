@@ -21,3 +21,9 @@ jest.mock('react-router-native', () => ({
   useNavigate: () => jest.fn(),
 }));
 ```
+
+## 防抖动
+
+很奇怪的是，我使用 `useDebounce` 时会出现吞输入的情况。这种情况在 Web、Andorid 端都可以轻易复现（我没有苹果设备）。
+
+因此最终的代码没有使用防抖动。
