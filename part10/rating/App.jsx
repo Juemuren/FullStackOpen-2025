@@ -1,5 +1,6 @@
 import { NativeRouter } from 'react-router-native';
 import { ApolloProvider } from '@apollo/client/react';
+import { loadDevMessages, loadErrorMessages } from '@apollo/client/dev';
 
 import Main from './src/components/Main';
 import createApolloClient from './src/utils/apolloClient';
@@ -8,6 +9,9 @@ import AuthStorageContext from './src/contexts/AuthStorageContext';
 
 const authStorage = new AuthStorage();
 const apolloClient = createApolloClient(authStorage);
+
+loadDevMessages();
+loadErrorMessages();
 
 const App = () => {
   return (
