@@ -44,7 +44,7 @@ export class RepositoryListContainer extends React.Component {
   };
 
   render() {
-    const { repositories, searchKeyword } = this.props;
+    const { repositories, searchKeyword, onEndReach } = this.props;
 
     const repositoryNodes = repositories ? repositories.edges.map((edge) => edge.node) : [];
     const filteredRepositoryNodes = repositoryNodes.filter((r) => r.fullName.toLowerCase().includes(searchKeyword));
@@ -56,6 +56,8 @@ export class RepositoryListContainer extends React.Component {
         renderItem={({ item }) => <RepositoryItemPressable item={item} />}
         keyExtractor={(item) => item.id}
         ListHeaderComponent={this.renderHeader}
+        onEndReached={onEndReach}
+        onEndReachedThreshold={0.5}
       />
     );
   }

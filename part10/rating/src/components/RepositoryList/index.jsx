@@ -11,12 +11,16 @@ const RepositoryList = () => {
     lowest: { orderBy: 'RATING_AVERAGE', orderDirection: 'ASC' },
   };
   const [orderKey, setOrderKey] = useState('latest');
-  const order = ORDER_OPTIONS[orderKey];
+  const { orderBy, orderDirection } = ORDER_OPTIONS[orderKey];
 
   const [searchKeyword, setSearchKeyword] = useState('');
   // const [debouncedSearchKeyword] = useDebounce(searchKeyword, 1000);
 
-  const { repositories } = useRepositories(order);
+  const { repositories, fetchMore } = useRepositories({
+    first: 8,
+    orderBy,
+    orderDirection,
+  });
 
   return (
     <RepositoryListContainer
@@ -25,6 +29,7 @@ const RepositoryList = () => {
       setOrderKey={setOrderKey}
       searchKeyword={searchKeyword}
       setSearchKeyword={setSearchKeyword}
+      onEndReach={fetchMore}
     />
   );
 };
