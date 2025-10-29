@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export const SignInContainer = ({ onSubmit }) => {
+const SignInContainer = ({ onSubmit }) => {
   const initialValues = {
     username: '',
     password: '',
@@ -78,3 +78,5 @@ export const SignInContainer = ({ onSubmit }) => {
     </View>
   );
 };
+
+export default SignInContainer;
