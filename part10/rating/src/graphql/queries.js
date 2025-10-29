@@ -63,20 +63,6 @@ export const GET_REPOSITORY = gql`
   }
 `;
 
-// TODO unused
-export const SEARCH_REPOSITORIES = gql`
-  query SearchRepositories($searchKeyword: String) {
-    repositories(searchKeyword: $searchKeyword) {
-      edges {
-        node {
-          id
-          fullName
-        }
-      }
-    }
-  }
-`;
-
 export const GET_ME = gql`
   query GetMe($includeReviews: Boolean = false) {
     me {
