@@ -1,8 +1,10 @@
 import { useNavigate } from 'react-router-native';
+import useCreateUser from '../../hooks/useCreateUser';
 import useSignIn from '../../hooks/useSignIn';
-import { SignInContainer } from './SignInContainer';
+import SignUpContainer from './SignUpContainer';
 
-const SignIn = () => {
+const SignUp = () => {
+  const [createUser] = useCreateUser();
   const [signIn] = useSignIn();
   const navi = useNavigate();
 
@@ -10,15 +12,16 @@ const SignIn = () => {
     const { username, password } = values;
 
     try {
-      const { data } = await signIn({ username, password });
+      const { data } = await createUser({ username, password });
       console.log(data);
+      await signIn({ username, password });
       navi('/');
     } catch (e) {
       console.log(e);
     }
   };
 
-  return <SignInContainer onSubmit={onSubmit} />;
+  return <SignUpContainer onSubmit={onSubmit} />;
 };
 
-export default SignIn;
+export default SignUp;
