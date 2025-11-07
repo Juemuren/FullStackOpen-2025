@@ -1,0 +1,121 @@
+脚本启动于 2025-11-06 16:15:28+08:00 [TERM="xterm-256color" TTY="/dev/cons0" COLUMNS="120" LINES="30"]
+[?2004hsh-5.2$ podman start -ai 9ad[K[K[Kmystifying_vaughan
+[?2004l[6n[6n[?9001h[?1004h[m[?25h[?2004hroot@9dbcdc396ddf:/# ]0;root@9dbcdc396ddf: /which nano[?2004l
+[?2004hroot@9dbcdc396ddf:/# [7mapt-get update[?25l[27m[30;22Hapt-get update[?25h[?2004l
+0% [Working]0% [Waiting for headers] [Waiting for headers]Get:1 http://security.ubuntu.com/ubuntu noble-security InRelease [126 kB]
+0% [Waiting for headers] [1 InRelease 4096 B/126 kB 3%]Get:2 http://archive.ubuntu.com/ubuntu noble InRelease [256 kB]
+0% [2 InRelease 2588 B/256 kB 1%] [1 InRelease 5484 B/126 kB 4%]0% [2 InRelease 64.9 kB/256 kB 25%] [1 InRelease 79.3 kB/126 kB 63%]0% [2 InRelease 96.7 kB/256 kB 38%][33X0% [2 InRelease 108 kB/256 kB 42%] Get:3 http://security.ubuntu.com/ubuntu noble-security/restricted amd64 Packages [2703 kB]
+0% [2 InRelease 236 kB/256 kB 92%] [3 Packages 2655 B/2703 kB 0%]0% [3 Packages 24.4 kB/2703 kB 1%][31X0% [Waiting for headers] [3 Packages 50.4 kB/2703 kB 2%]Get:4 http://archive.ubuntu.com/ubuntu noble-updates InRelease [126 kB]
+0% [4 InRelease 2588 B/126 kB 2%] [3 Packages 230 kB/2703 kB 9%]0% [3 Packages 307 kB/2703 kB 11%][30X0% [Waiting for headers] [3 Packages 336 kB/2703 kB 12%]Get:5 http://archive.ubuntu.com/ubuntu noble-backports InRelease [126 kB]
+0% [5 InRelease 2588 B/126 kB 2%] [3 Packages 864 kB/2703 kB 32%]0% [3 Packages 1213 kB/2703 kB 45%][30X17% [Waiting for headers] [3 Packages 1348 kB/2703 kB 50%]20% [Waiting for headers][33X20% [3 Packages store 0 B] [Waiting for headers] [Waiting for headers]Get:6 http://archive.ubuntu.com/ubuntu noble/restricted amd64 Packages [117 kB]
+20% [3 Packages store 0 B] [6 Packages 5553 B/117 kB 5%] [Waiting for headers]21% [6 Packages 53.3 kB/117 kB 45%] [Waiting for headers][21XGet:7 http://archive.ubuntu.com/ubuntu noble/multiverse amd64 Packages [331 kB]
+21% [6 Packages store 0 B] [7 Packages 853 B/331 kB 0%] [Waiting for headers]21% [7 Packages 3749 B/331 kB 1%] [Waiting for headers][22XGet:8 http://security.ubuntu.com/ubuntu noble-security/multiverse amd64 Packages [33.1 kB]
+22% [7 Packages 225 kB/331 kB 68%] [8 Packages 5443 B/33.1 kB 16%]Get:9 http://security.ubuntu.com/ubuntu noble-security/main amd64 Packages [1639 kB]
+23% [7 Packages 235 kB/331 kB 71%] [9 Packages 28.8 kB/1639 kB 2%]Get:10 http://archive.ubuntu.com/ubuntu noble/main amd64 Packages [1808 kB]
+25% [7 Packages store 0 B] [10 Packages 735 B/1808 kB 0%] [9 Packages 1126 kB/1639 kB 69%]26% [10 Packages 15.2 kB/1808 kB 1%] [9 Packages 1346 kB/1639 kB 82%][21XGet:11 http://security.ubuntu.com/ubuntu noble-security/universe amd64 Packages [1170 kB]
+27% [9 Packages store 0 B] [10 Packages 35.7 kB/1808 kB 2%] [11 Packages 11.4 kB/1170 kB 1%]30% [10 Packages 107 kB/1808 kB 6%] [11 Packages 861 kB/1170 kB 74%][24X[?25l31% [11 Packages store 0 B] [10 Packages 249 kB/1808 kB 14%]        [30;61H[?25h32% [10 Packages 333 kB/1808 kB 18%][24XGet:12 http://archive.ubuntu.com/ubuntu noble/universe amd64 Packages [19.3 MB]
+35% [10 Packages store 0 B] [12 Packages 6525 B/19.3 MB 0%]37% [12 Packages 406 kB/19.3 MB 2%][24X51% [12 Packages 6495 kB/19.3 MB 34%]62% [12 Packages 11.6 MB/19.3 MB 60%]Get:13 http://archive.ubuntu.com/ubuntu noble-updates/restricted amd64 Packages [2842 kB]
+80% [12 Packages store 0 B] [13 Packages 39.6 kB/2842 kB 1%]Get:14 http://archive.ubuntu.com/ubuntu noble-updates/universe amd64 Packages [1939 kB]
+87% [12 Packages store 0 B] [14 Packages 8192 B/1939 kB 0%]Get:15 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 Packages [2005 kB]
+91% [12 Packages store 0 B] [15 Packages 14.7 kB/2005 kB 1%]Get:16 http://archive.ubuntu.com/ubuntu noble-updates/multiverse amd64 Packages [35.9 kB]
+96% [12 Packages store 0 B] [16 Packages 14.8 kB/35.9 kB 41%]Get:17 http://archive.ubuntu.com/ubuntu noble-backports/universe amd64 Packages [33.9 kB]
+Get:18 http://archive.ubuntu.com/ubuntu noble-backports/main amd64 Packages [49.4 kB]
+96% [12 Packages store 0 B]97% [13 Packages store 0 B]97% [14 Packages store 0 B]98% [15 Packages store 0 B]98% [16 Packages store 0 B]Fetched 34.7 MB in 5s (6674 kB/s)
+Reading package lists... 0%Reading package lists... 0%Reading package lists... 0%Reading package lists... 5%Reading package lists... 57%Reading package lists... 58%Reading package lists... 64%Reading package lists... 71%Reading package lists... 81%Reading package lists... 86%Reading package lists... 90%Reading package lists... Done
+[?2004hroot@9dbcdc396ddf:/# [7mapt-get -y install nano[?25l[27m[30;22Hapt-get -y install nano[?25h[?2004l
+Reading package lists... 0%Reading package lists... 0%Reading package lists... 0%Reading package lists... 5%Reading package lists... 57%Reading package lists... 58%Reading package lists... 64%Reading package lists... 71%Reading package lists... 81%Reading package lists... 81%Reading package lists... 86%Reading package lists... 99%Reading package lists... Done
+Building dependency tree... 0%Building dependency tree... 50%Building dependency tree... Done
+Reading state information... Done
+Suggested packages:
+  hunspell
+The following NEW packages will be installed:
+  nano
+0 upgraded, 1 newly installed, 0 to remove and 2 not upgraded.
+Need to get 282 kB of archives.
+After this operation, 856 kB of additional disk space will be used.
+0% [Working]0% [Waiting for headers]Get:1 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 nano amd64 7.2-2ubuntu0.1 [282 kB]
+1% [1 nano 2604 B/282 kB 1%]18% [1 nano 63.4 kB/282 kB 23%]Fetched 282 kB in 2s (186 kB/s)
+debconf: delaying package configuration, since apt-utils is not installed
+Selecting previously unselected package nano.
+(Reading database ...(Reading database ... 4381 files and directories currently installed.)
+Preparing to unpack .../nano_7.2-2ubuntu0.1_amd64.deb ...
+Unpacking nano (7.2-2ubuntu0.1) ...
+Setting up nano (7.2-2ubuntu0.1) ...
+update-alternatives: using /bin/nano to provide /usr/bin/editor (editor) in auto mode
+update-alternatives: warning: skip creation of /usr/share/man/man1/editor.1.gz because associated file /usr/share/man/ma
+[29;120Han1/nano.1.gz (of link group editor) doesn't exist
+update-alternatives: using /bin/nano to provide /usr/bin/pico (pico) in auto mode
+update-alternatives: warning: skip creation of /usr/share/man/man1/pico.1.gz because associated file /usr/share/man/man1
+[29;120H1/nano.1.gz (of link group pico) doesn't exist
+[?2004hroot@9dbcdc396ddf:/# which no ano[?2004l
+/usr/bin/nano[?2004h
+root@9dbcdc396ddf:/#[1C[7mnano /usr/src/app/index.js[?25l[27m[30;22Hnano /usr/src/app/index.js[?25h[?2004l
+[?2004h[?1049h[22;0;0t[?1h=[?1h=[2J[?12l[?25l[7m[H  GNU nano 7.2                                      /usr/src/app/index.js                                               [27m
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[52X[7m[52C[ Read 0 lines ][27m[K[7m
+^G[27m Help        [7m^O[27m Write Out   [7m^W[27m Where Is    [7m^K[27m Cut[9X[7m[9C^T[27m Execute     [7m^C[27m Location    [7mM-U[27m Undo       [7mM-A[27m Set Mark   [7m
+^X[27m Exit        [7m^R[27m Read File   [7m^\[27m Replace     [7m^U[27m Paste       [7m^J[27m Justify     [7m^/[27m Go To Line  [7mM-E[27m Redo       [7mM-6[27m Copy       [2;1H[?25h[?25l[7m[1;75H*[27m[28;1H[K[120C[?12l[2;1Hconsole.log([35m[1m'Hello World'[m)[?25h[?12lX[?25l[?12l [?25h[?12l[?25l[7m[28;1HSave modified buffer?                                                                                                    Y[27m Yes[K[7m
+ N[27m No  [8C [7m^C[27m Cancel[K[28;23H[?25h[?12l[?25l[7mFile Name to Write: /usr/src/app/index.js
+^G[27m Help[7m[23CM-D[27m DOS Format[7m[16CM-A[27m Append[7m[20CM-B[27m Backup File[7m
+^C[27m Cancel[7C[14X[7m[14CM-M[27m Mac Format[7m[16CM-P[27m Prepend[7m[19C^T[27m Browse[28;42H[?25h[?25l                                                     [53X[7m[ Writing... ][27m                                                     [28;174H[?12l[7m[1;75H [27m[28;1H                                                                                                                        
+[K
+[K[?25h[?1049l[23;0;0t[?1l>[?2004l[?2004h[?25l[HReading package lists... Done[K
+root@9dbcdc396ddf:/# apt-get -y install nano[K
+Reading package lists... Done[K
+Building dependency tree... Done[K
+Reading state information... Done[K
+Suggested packages:[K
+  hunspell[K
+The following NEW packages will be installed:[K
+  nano[K
+0 upgraded, 1 newly installed, 0 to remove and 2 not upgraded.[K
+Need to get 282 kB of archives.[K
+After this operation, 856 kB of additional disk space will be used.[K
+Get:1 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 nano amd64 7.2-2ubuntu0.1 [282 kB][K
+Fetched 282 kB in 2s (186 kB/s)[K
+debconf: delaying package configuration, since apt-utils is not installed[K
+Selecting previously unselected package nano.[K
+(Reading database ... 4381 files and directories currently installed.)[K
+Preparing to unpack .../nano_7.2-2ubuntu0.1_amd64.deb ...[K
+Unpacking nano (7.2-2ubuntu0.1) ...[K
+Setting up nano (7.2-2ubuntu0.1) ...[K
+update-alternatives: using /bin/nano to provide /usr/bin/editor (editor) in auto mode[K
+update-alternatives: warning: skip creation of /usr/share/man/man1/editor.1.gz because associated file /usr/share/man/man1/nano.1.gz (of link group editor) doesn't exist[K
+update-alternatives: using /bin/nano to provide /usr/bin/pico (pico) in auto mode[K
+update-alternatives: warning: skip creation of /usr/share/man/man1/pico.1.gz because associated file /usr/share/man/man1/nano.1.gz (of link group pico) doesn't exist[K
+root@9dbcdc396ddf:/# which nano[K
+/usr/bin/nano[K
+root@9dbcdc396ddf:/# nano /usr/src/app/index.js[K
+root@9dbcdc396ddf:/#[K[1C[?25hcat usr/src/app/index.js [?2004l
+console.log('Hello World')[?2004h
+root@9dbcdc396ddf:/#[1Cexit[?2004l
+exit
+[?9001l[?1004l[?2004hsh-5.2$ exit
+[?2004lexit
+
+脚本完成于 2025-11-06 16:17:12+08:00 [COMMAND_EXIT_CODE="0"]

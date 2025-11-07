@@ -1,0 +1,10 @@
+脚本启动于 2025-11-06 16:03:44+08:00 [TERM="xterm-256color" TTY="/dev/cons0" COLUMNS="120" LINES="30"]
+[?2004hsh-5.2$ podman run -it ubuntu bash
+[?2004l[6n[6n[?9001h[?1004h[m[?25h[?2004hroot@9dbcdc396ddf:/# ]0;root@9dbcdc396ddf: /mkdk  dir /is  usr/src/app[?2004l
+[?2004hroot@9dbcdc396ddf:/# touch /usr/src/app/index.js[?2004l
+[?2004hroot@9dbcdc396ddf:/#[K[1Cexit[?2004l
+exit
+[?9001l[?1004l[?2004hsh-5.2$ exit
+[?2004lexit
+
+脚本完成于 2025-11-06 16:04:22+08:00 [COMMAND_EXIT_CODE="0"]
