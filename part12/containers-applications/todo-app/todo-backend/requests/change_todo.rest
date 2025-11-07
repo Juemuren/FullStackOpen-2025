@@ -1,0 +1,7 @@
+PUT http://localhost:3000/todos/690e0fff2ae2659d3ace5f47
+Content-Type: application/json
+
+{
+    "text": "Sleep 8 hours",
+    "done": true
+}
