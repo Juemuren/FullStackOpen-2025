@@ -29,7 +29,7 @@ services:
     volumes:
       - ./todo-frontend/:/usr/src/app
     environment:
-      - VITE_BACKEND_URL=http://server:3000
+      - VITE_BACKEND_URL=http://localhost:8080/api
     depends_on:
       - server
   nginx:
