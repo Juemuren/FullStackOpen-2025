@@ -32,7 +32,11 @@ router.get('/:id', async (req, res) => {
 
 router.put('/:username', async (req, res, next) => {
   try {
-    const user = await User.findOne({ username: req.params.username })
+    const user = await User.findOne({
+      where: {
+        username: req.params.username
+      }
+    })
     user.name = req.body.name
     await user.save()
     res.json(user)
