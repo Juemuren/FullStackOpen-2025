@@ -1,6 +1,6 @@
 POST http://localhost:3001/api/blogs
 Content-Type: application/json
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJvb3QiLCJpZCI6MywiaWF0IjoxNzYyNzg5OTYxfQ.CrdeF-KmpAIFqdl_Qg9BhHi6YvpEPrMWXtSmQwrxgCI
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJvb3RAZXhhbXBsZS5jb20iLCJpZCI6MSwiaWF0IjoxNzYyNzk5MjQ2fQ.PyWs66qowmpxPsSJfd4uGfK4_HK3DJNn8ef7dSZdQ9M
 
 {
   "author": "a Author",
@@ -21,10 +21,11 @@ Content-Type: application/json
 
 POST http://localhost:3001/api/blogs
 Content-Type: application/json
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJvb3QiLCJpZCI6MywiaWF0IjoxNzYyNzg5OTYxfQ.CrdeF-KmpAIFqdl_Qg9BhHi6YvpEPrMWXtSmQwrxgCI
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJvb3RAZXhhbXBsZS5jb20iLCJpZCI6MSwiaWF0IjoxNzYyNzk5MjQ2fQ.PyWs66qowmpxPsSJfd4uGfK4_HK3DJNn8ef7dSZdQ9M
 
 {
   "author": "Me",
   "url": "https://example.com",
-  "title": "C language is a step backward in technology"
+  "title": "C language is a step backward in technology",
+  "year": 2024
 }
