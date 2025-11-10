@@ -47,11 +47,18 @@ router.put('/:id', blogFinder, async (req, res, next) => {
   }
 })
 
-router.delete('/:id', async (req, res) => {
-  if (req.blog) {
-    await req.blog.destroy()
+router.delete('/:id', blogFinder, tokenExtractor, async (req, res, next) => {
+  try {
+    const user = await User.findByPk(req.decodedToken.id)
+    if (user.id === req.blog.userId) {
+      await req.blog.destroy()
+      res.status(204).end()
+    } else {
+      res.status(401).json({ error: 'permission denied' })
+    }
+  } catch (error) {
+    next(error)
   }
-  res.status(204).end()
 })
 
 module.exports = router
