@@ -1,0 +1,17 @@
+POST http://localhost:3001/api/blogs
+Content-Type: application/json
+
+{
+  "author": "a Author",
+  "url": "https://example.com",
+  "title": "a Title"
+}
+
+###
+
+POST http://localhost:3001/api/blogs
+Content-Type: application/json
+
+{
+  "title": "miss url"
+}
