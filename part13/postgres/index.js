@@ -5,12 +5,15 @@ const { PORT } = require('./util/config')
 const { connectToDatabase } = require('./util/db')
 
 const blogsRouter = require('./controllers/blogs')
+const usersRouter = require('./controllers/users')
+const loginRouter = require('./controllers/login')
 const { errorHandle } = require('./util/middleware')
 
 app.use(express.json())
 
 app.use('/api/blogs', blogsRouter)
-
+app.use('/api/users', usersRouter)
+app.use('/api/login', loginRouter)
 app.use(errorHandle)
 
 const start = async () => {
